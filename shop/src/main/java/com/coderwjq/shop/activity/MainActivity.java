@@ -1,7 +1,9 @@
-package com.coderwjq.shop;
+package com.coderwjq.shop.activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.coderwjq.shop.R;
 
 public class MainActivity extends AppCompatActivity {
 

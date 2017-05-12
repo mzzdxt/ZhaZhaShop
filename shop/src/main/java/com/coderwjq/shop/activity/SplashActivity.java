@@ -1,4 +1,4 @@
-package com.coderwjq.shop;
+package com.coderwjq.shop.activity;
 
 import android.os.Bundle;
 import android.support.animation.DynamicAnimation;
@@ -9,22 +9,28 @@ import android.support.v7.widget.AppCompatTextView;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.code19.library.DensityUtil;
-import com.coderwjq.shop.activity.LoginActivity;
+import com.coderwjq.shop.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+import jp.wasabeef.glide.transformations.BlurTransformation;
 
 public class SplashActivity extends AppCompatActivity {
 
+    private static final String TAG = "SplashActivity";
     @BindView(R.id.civ_icon)
     CircleImageView mCivIcon;
     @BindView(R.id.tv_welcome)
     AppCompatTextView mTvWelcome;
     @BindView(R.id.tv_author)
     AppCompatTextView mTvAuthor;
+    @BindView(R.id.iv_background)
+    ImageView mIvBackground;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +38,14 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
         ButterKnife.bind(this);
 
-        hideViews();
+        initBackgroundBlur();
         initIconAnimation();
     }
 
-    private void hideViews() {
-        mTvWelcome.setVisibility(View.INVISIBLE);
+    private void initBackgroundBlur() {
+        Glide.with(this).load(R.drawable.icon_coderwjq)
+                .bitmapTransform(new BlurTransformation(SplashActivity.this, 6))
+                .into(mIvBackground);
     }
 
     /**

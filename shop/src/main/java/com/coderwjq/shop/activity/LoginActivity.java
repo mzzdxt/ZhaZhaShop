@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.coderwjq.shop.R;
 
+import butterknife.ButterKnife;
+
 public class LoginActivity extends AppCompatActivity {
 
     public static void invoke(Activity activity) {
@@ -19,5 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
     }
+
 }

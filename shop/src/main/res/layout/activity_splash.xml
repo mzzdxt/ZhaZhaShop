@@ -5,7 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.coderwjq.shop.SplashActivity">
+    tools:context="com.coderwjq.shop.activity.SplashActivity">
+
+    <ImageView
+        android:id="@+id/iv_background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/civ_icon"
@@ -25,6 +30,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:text="欢迎使用"
+        android:visibility="invisible"
         android:textColor="@android:color/holo_blue_light"
         android:textSize="28sp"/>
 
