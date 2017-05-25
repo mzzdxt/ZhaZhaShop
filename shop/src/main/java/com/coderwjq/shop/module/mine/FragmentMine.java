@@ -1,5 +1,6 @@
 package com.coderwjq.shop.module.mine;
 
+import com.coderwjq.shop.R;
 import com.coderwjq.shop.base.BaseFragment;
 
 /**
@@ -8,8 +9,13 @@ import com.coderwjq.shop.base.BaseFragment;
  */
 
 public class FragmentMine extends BaseFragment {
+
+    public static FragmentMine getInstance() {
+        return new FragmentMine();
+    }
+
     @Override
     protected int getLayoutId() {
-        return 0;
+        return R.layout.fragment_mine;
     }
 }

@@ -1,5 +1,6 @@
 package com.coderwjq.shop.module.cinema;
 
+import com.coderwjq.shop.R;
 import com.coderwjq.shop.base.BaseFragment;
 
 /**
@@ -8,8 +9,13 @@ import com.coderwjq.shop.base.BaseFragment;
  */
 
 public class FragmentCinema extends BaseFragment {
+
+    public static FragmentCinema getInstance() {
+        return new FragmentCinema();
+    }
+
     @Override
     protected int getLayoutId() {
-        return 0;
+        return R.layout.fragment_cinema;
     }
 }

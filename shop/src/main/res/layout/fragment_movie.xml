@@ -10,14 +10,13 @@
         android:background="@android:color/holo_blue_dark"
         android:padding="6dp">
 
-        <TextView
-            android:id="@+id/tv_area_name"
-            android:layout_width="70dp"
-            android:layout_height="match_parent"
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:gravity="center"
-            android:text="北京"
-            android:textColor="@android:color/white"/>
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/icon_coderwjq"/>
 
         <HorizontalScrollView
             android:layout_width="192dp"
@@ -77,13 +76,16 @@
             </FrameLayout>
         </HorizontalScrollView>
 
-        <ImageView
-            android:layout_width="25dp"
-            android:layout_height="25dp"
+        <TextView
+            android:id="@+id/tv_area_name"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/ic_search"/>
+            android:gravity="center"
+            android:text="北京"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"/>
     </RelativeLayout>
 
     <android.support.v4.view.ViewPager

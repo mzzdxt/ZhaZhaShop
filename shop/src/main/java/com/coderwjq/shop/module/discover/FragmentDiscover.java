@@ -1,5 +1,6 @@
 package com.coderwjq.shop.module.discover;
 
+import com.coderwjq.shop.R;
 import com.coderwjq.shop.base.BaseFragment;
 
 /**
@@ -8,8 +9,13 @@ import com.coderwjq.shop.base.BaseFragment;
  */
 
 public class FragmentDiscover extends BaseFragment {
+
+    public static FragmentDiscover getInstance() {
+        return new FragmentDiscover();
+    }
+
     @Override
     protected int getLayoutId() {
-        return 0;
+        return R.layout.fragment_discover;
     }
 }

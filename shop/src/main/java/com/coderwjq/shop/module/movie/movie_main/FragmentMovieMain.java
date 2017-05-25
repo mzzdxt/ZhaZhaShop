@@ -10,6 +10,10 @@ import com.coderwjq.shop.base.BaseFragment;
 
 public class FragmentMovieMain extends BaseFragment {
 
+    public static FragmentMovieMain getInstance() {
+        return new FragmentMovieMain();
+    }
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_movie;
