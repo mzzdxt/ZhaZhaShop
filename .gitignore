@@ -41,6 +41,6 @@ captures/
 
 # custom ignore
 .gradle/
-.idea/
+.idea/*
 build/
 shop/build/
