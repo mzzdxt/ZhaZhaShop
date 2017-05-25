@@ -1,5 +1,6 @@
-package com.coderwjq.shop.module.movie.movie_wait;
+package com.coderwjq.shop.module.movie.movie_hot;
 
+import com.coderwjq.shop.R;
 import com.coderwjq.shop.base.BaseFragment;
 
 /**
@@ -7,14 +8,24 @@ import com.coderwjq.shop.base.BaseFragment;
  * @Desc
  */
 
-public class FragmentMovieWait extends BaseFragment {
+public class FragmentMovieHot extends BaseFragment {
 
-    public static FragmentMovieWait getInstance() {
-        return new FragmentMovieWait();
+    public static FragmentMovieHot getInstance() {
+        return new FragmentMovieHot();
     }
 
     @Override
     protected int getLayoutId() {
-        return 0;
+        return R.layout.fragment_hot_movie;
+    }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initListener() {
+
     }
 }

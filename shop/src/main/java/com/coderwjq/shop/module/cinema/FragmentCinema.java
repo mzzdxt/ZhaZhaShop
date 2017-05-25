@@ -18,4 +18,14 @@ public class FragmentCinema extends BaseFragment {
     protected int getLayoutId() {
         return R.layout.fragment_cinema;
     }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
 }

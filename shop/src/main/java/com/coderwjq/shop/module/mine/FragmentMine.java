@@ -18,4 +18,14 @@ public class FragmentMine extends BaseFragment {
     protected int getLayoutId() {
         return R.layout.fragment_mine;
     }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
 }

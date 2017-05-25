@@ -18,4 +18,14 @@ public class FragmentDiscover extends BaseFragment {
     protected int getLayoutId() {
         return R.layout.fragment_discover;
     }
+
+    @Override
+    protected void initData() {
+
+    }
+
+    @Override
+    protected void initListener() {
+
+    }
 }

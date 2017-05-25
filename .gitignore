@@ -38,3 +38,9 @@ captures/
 
 # Keystore files
 *.jks
+
+# custom ignore
+.gradle/
+.idea/
+build/
+shop/build/

@@ -12,4 +12,7 @@
     <color name="login_blue_dark">#aa33b5e5</color>
 
     <color name="tv_normal_gray">#2c2c2c</color>
+
+    <color name="holo_blue_dark">#ff0099cc</color>
+    <color name="white">#ffffffff</color>
 </resources>
