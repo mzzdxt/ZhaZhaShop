@@ -15,4 +15,6 @@
 
     <color name="holo_blue_dark">#ff0099cc</color>
     <color name="white">#ffffffff</color>
+
+    <color name="text_gray_light">#c8c8c8</color>
 </resources>
