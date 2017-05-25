@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -18,7 +19,12 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class LoginActivity extends AppCompatActivity {
+/**
+ * @Created by coderwjq on 2017/5/17 17:18.
+ * @Desc
+ */
+
+public class RegistActivity extends AppCompatActivity {
 
     @BindView(R.id.btn_back)
     ImageView mBtnBack;
@@ -28,47 +34,44 @@ public class LoginActivity extends AppCompatActivity {
     TextInputLayout mTilUsername;
     @BindView(R.id.til_password)
     TextInputLayout mTilPassword;
+    @BindView(R.id.til_password_confirm)
+    TextInputLayout mTilPasswordConfirm;
     @BindView(R.id.btn_regist)
     Button mBtnRegist;
-    @BindView(R.id.btn_login)
-    Button mBtnLogin;
     private KProgressHUD mHud;
 
-    public static void invoke(Activity activity) {
-        Intent intent = new Intent(activity, LoginActivity.class);
-        activity.startActivity(intent);
-        activity.finish();
+    public static void invoke(Activity srcActivity) {
+        srcActivity.startActivity(new Intent(srcActivity, RegistActivity.class));
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_regist);
         ButterKnife.bind(this);
-        initHUD();
+
+        mTvTitle.setText("注册");
     }
 
-    private void initHUD() {
-        mHud = KProgressHUD.create(this)
-                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                .setLabel("正在登陆...")
-                .setDimAmount(0.5f);
-    }
-
-    @OnClick({R.id.btn_back, R.id.btn_regist, R.id.btn_login})
+    @OnClick({R.id.btn_back, R.id.btn_regist})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_back:
                 finish();
                 break;
             case R.id.btn_regist:
-                RegistActivity.invoke(LoginActivity.this);
-                break;
-            case R.id.btn_login:
-                mHud.show();
-                scheduleDismiss();
+                handleBtnRegistClick();
                 break;
         }
+    }
+
+    private void handleBtnRegistClick() {
+        mHud = KProgressHUD.create(this)
+                .setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel("正在请求服务器...")
+                .setDimAmount(0.5f);
+        mHud.show();
+        scheduleDismiss();
     }
 
     private void scheduleDismiss() {
@@ -77,7 +80,6 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void run() {
                 mHud.dismiss();
-                MainActivity.invoke(LoginActivity.this, true);
             }
         }, 2000);
     }

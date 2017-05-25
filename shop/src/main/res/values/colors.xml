@@ -10,4 +10,6 @@
     <color name="login_green_light">#aa99cc00</color>
     <color name="login_blue_light">#ff33b5e5</color>
     <color name="login_blue_dark">#aa33b5e5</color>
+
+    <color name="tv_normal_gray">#2c2c2c</color>
 </resources>

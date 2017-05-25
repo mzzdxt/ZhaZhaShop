@@ -70,7 +70,7 @@
             android:layout_below="@+id/til_password"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:background="@drawable/btn_login_selector"
+            android:background="@drawable/btn_regist_selector"
             android:text="注册"
             android:textSize="20sp"/>
 

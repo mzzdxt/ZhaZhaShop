@@ -2,4 +2,5 @@
     <string name="app_name">shop</string>
     <string name="hint_input_username">请输入用户名</string>
     <string name="hint_input_password">请输入密码</string>
+    <string name="hint_input_password_confirm">请再次输入密码</string>
 </resources>
