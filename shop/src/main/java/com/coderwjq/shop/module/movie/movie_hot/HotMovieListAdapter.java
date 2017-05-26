@@ -112,6 +112,7 @@ public class HotMovieListAdapter extends BaseMultiItemQuickAdapter<HotMovieBean.
                         mToastor.showSingletonToast(item.getHeadLinesVO().get(1).getUrl());
                     }
                 });
+                helper.setText(R.id.tv_hot_director, "导演: 尼古拉斯·喳喳");
                 break;
         }
 

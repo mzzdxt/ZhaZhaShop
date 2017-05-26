@@ -1,199 +1,212 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical">
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/AppCardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="114dp"
-        android:paddingLeft="@dimen/dp_10"
-        android:paddingRight="@dimen/dp_10"
-        android:paddingTop="@dimen/dp_10">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <FrameLayout
-            android:id="@+id/fl_hot_movie"
-            android:layout_width="68dp"
-            android:layout_height="90dp"
-            android:layout_alignParentLeft="true">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="114dp"
+            android:paddingLeft="@dimen/dp_10"
+            android:paddingRight="@dimen/dp_10"
+            android:paddingTop="@dimen/dp_10">
 
-            <ImageView
-                android:id="@+id/iv_hot_img"
+            <FrameLayout
+                android:id="@+id/fl_hot_movie"
+                android:layout_width="68dp"
+                android:layout_height="90dp"
+                android:layout_alignParentLeft="true">
+
+                <ImageView
+                    android:id="@+id/iv_hot_img"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:src="@drawable/icon_default"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_video_play"/>
+            </FrameLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_hot_title"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                tools:src="@drawable/icon_default"/>
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_toRightOf="@id/fl_hot_movie"
+                android:gravity="center_vertical">
 
-            <ImageView
+                <TextView
+                    android:id="@+id/tv_hot_movie_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_primary"
+                    android:textSize="@dimen/sp_16"
+                    tools:text="喳喳影业"/>
+
+                <ImageView
+                    android:id="@+id/iv_ver"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_4"
+                    tools:src="@drawable/ic_3d"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_hot_score_or_wish"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@drawable/ic_video_play"/>
-        </FrameLayout>
+                android:layout_below="@id/ll_hot_title"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginTop="6dp"
+                android:layout_toRightOf="@id/fl_hot_movie"
+                android:orientation="horizontal">
 
-        <LinearLayout
-            android:id="@+id/ll_hot_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_toRightOf="@id/fl_hot_movie"
-            android:gravity="center_vertical">
+                <TextView
+                    android:id="@+id/tv_hot_audience"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="评分"/>
+
+                <TextView
+                    android:id="@+id/tv_hot_director"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    tools:text="导演: 王家齐"/>
+
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_hot_movie_name"
+                android:id="@+id/tv_hot_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/text_primary"
-                android:textSize="@dimen/sp_16"
-                tools:text="喳喳影业"/>
-
-            <ImageView
-                android:id="@+id/iv_ver"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_4"
-                tools:src="@drawable/ic_3d"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_hot_score_or_wish"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ll_hot_title"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_marginTop="6dp"
-            android:layout_toRightOf="@id/fl_hot_movie">
+                android:layout_below="@id/ll_hot_score_or_wish"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginTop="6dp"
+                android:layout_toRightOf="@id/fl_hot_movie"
+                tools:text="亡灵要复仇，船长要发愁"/>
 
             <TextView
-                android:id="@+id/tv_hot_audience"
+                android:id="@+id/tv_hot_showInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="评分"/>
+                android:layout_alignStart="@+id/tv_hot_desc"
+                android:layout_below="@+id/tv_hot_desc"
+                android:layout_marginTop="@dimen/dp_4"
+                tools:text="今天147家影院放映3074场"/>
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/tv_buy_ticket"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                tools:text="购票"/>
 
-        <TextView
-            android:id="@+id/tv_hot_desc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/ll_hot_score_or_wish"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_marginTop="6dp"
-            android:layout_toRightOf="@id/fl_hot_movie"
-            tools:text="亡灵要复仇，船长要发愁"/>
-
-        <TextView
-            android:id="@+id/tv_hot_showInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/tv_hot_desc"
-            android:layout_below="@+id/tv_hot_desc"
-            android:layout_marginTop="@dimen/dp_4"
-            tools:text="今天147家影院放映3074场"/>
-
-        <TextView
-            android:id="@+id/tv_buy_ticket"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            tools:text="购票"/>
-
-    </RelativeLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginLeft="88dp"
-            android:background="@color/divider_normal"/>
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:padding="@dimen/dp_10">
+            android:orientation="vertical">
 
-            <FrameLayout
-                android:layout_width="68dp"
-                android:layout_height="wrap_content">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:layout_marginLeft="88dp"
+                android:background="@color/divider_normal"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="@dimen/dp_10"
+                >
+
+                <FrameLayout
+                    android:layout_width="68dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_hot_type1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:background="@drawable/bg_tv_topic"
+                        android:textColor="@color/text_yellow"
+                        android:textSize="@dimen/sp_12"
+                        tools:text="专题"/>
+
+                </FrameLayout>
 
                 <TextView
-                    android:id="@+id/tv_hot_type1"
+                    android:id="@+id/tv_hot_headline_title1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:background="@drawable/bg_tv_topic"
-                    android:textColor="@color/text_yellow"
-                    android:textSize="@dimen/sp_12"
-                    tools:text="专题"/>
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:textSize="13sp"
+                    tools:text="细数那些被杰克船长坑掉的海盗头子们"/>
+            </LinearLayout>
 
-            </FrameLayout>
-
-            <TextView
-                android:id="@+id/tv_hot_headline_title1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:textSize="13sp"
-                tools:text="细数那些被杰克船长坑掉的海盗头子们"/>
         </LinearLayout>
 
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="vertical">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_marginLeft="88dp"
-            android:background="@color/divider_normal"/>
-
         <LinearLayout
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
-            android:padding="@dimen/dp_10">
+            android:orientation="vertical">
 
-            <FrameLayout
-                android:layout_width="68dp"
-                android:layout_height="wrap_content">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2px"
+                android:layout_marginLeft="88dp"
+                android:background="@color/divider_normal"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:padding="@dimen/dp_10">
+
+                <FrameLayout
+                    android:layout_width="68dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_hot_type2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:background="@drawable/bg_tv_topic"
+                        android:textColor="@color/text_yellow"
+                        android:textSize="@dimen/sp_12"
+                        tools:text="专访"/>
+
+                </FrameLayout>
 
                 <TextView
-                    android:id="@+id/tv_hot_type2"
+                    android:id="@+id/tv_hot_headline_title2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:background="@drawable/bg_tv_topic"
-                    android:textColor="@color/text_yellow"
-                    android:textSize="@dimen/sp_12"
-                    tools:text="专访"/>
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:textSize="13sp"
+                    tools:text="被迪斯尼嫌娘炮？德普：我演的都同性恋"/>
+            </LinearLayout>
 
-            </FrameLayout>
-
-            <TextView
-                android:id="@+id/tv_hot_headline_title2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:textSize="13sp"
-                tools:text="被迪斯尼嫌娘炮？德普：我演的都同性恋"/>
         </LinearLayout>
 
     </LinearLayout>
-
-    <include layout="@layout/layout_1px_divider"/>
-
-</LinearLayout>
+</android.support.v7.widget.CardView>
