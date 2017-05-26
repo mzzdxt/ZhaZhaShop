@@ -20,6 +20,11 @@ public class FragmentDiscover extends BaseFragment {
     }
 
     @Override
+    protected void initView() {
+
+    }
+
+    @Override
     protected void initData() {
 
     }

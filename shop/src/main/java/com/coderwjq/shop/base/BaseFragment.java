@@ -18,7 +18,7 @@ import butterknife.Unbinder;
  */
 
 public abstract class BaseFragment extends Fragment {
-
+    private static final String TAG = "BaseFragment";
     protected Activity mContext;
     private Unbinder mBind;
 
@@ -42,10 +42,12 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
+        initView();
         initData();
         initListener();
     }
+
+    protected abstract void initView();
 
     protected abstract void initData();
 
@@ -56,4 +58,5 @@ public abstract class BaseFragment extends Fragment {
         super.onDestroyView();
         mBind.unbind();
     }
+
 }

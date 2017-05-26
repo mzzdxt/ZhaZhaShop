@@ -57,6 +57,11 @@ public class FragmentMovieMain extends BaseFragment implements ViewPager.OnPageC
     }
 
     @Override
+    protected void initView() {
+
+    }
+
+    @Override
     protected void initData() {
         initFragment();
         initAdapter();

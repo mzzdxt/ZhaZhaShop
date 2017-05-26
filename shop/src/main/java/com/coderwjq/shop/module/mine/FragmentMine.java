@@ -20,6 +20,11 @@ public class FragmentMine extends BaseFragment {
     }
 
     @Override
+    protected void initView() {
+
+    }
+
+    @Override
     protected void initData() {
 
     }
