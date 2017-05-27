@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#eee"
     tools:context="com.coderwjq.shop.activity.SplashActivity">
 
     <ImageView
@@ -19,8 +20,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="60dp"
         android:src="@drawable/icon_coderwjq"
-        app:civ_border_color="@android:color/holo_blue_light"
-        app:civ_border_width="5dp"/>
+        app:civ_border_color="@color/white"
+        app:civ_border_width="@dimen/dp_6"/>
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv_welcome"
@@ -30,9 +31,9 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:text="欢迎使用"
-        android:visibility="invisible"
         android:textColor="@android:color/holo_blue_light"
-        android:textSize="28sp"/>
+        android:textSize="28sp"
+        android:visibility="invisible"/>
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/tv_author"

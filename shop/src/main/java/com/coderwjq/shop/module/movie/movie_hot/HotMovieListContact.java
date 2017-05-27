@@ -17,6 +17,12 @@ public class HotMovieListContact {
         void addHotMovieList(List<HotMovieBean.DataBean.HotBean> hot);
 
         void addMovieIds(List<Integer> movieIds);
+
+        void addMoreMovies(HotMovieBean.DataBean.HotBean hotMovieBean);
+
+        void addMoreError(Throwable e);
+
+        void loadMoreCompleted();
     }
 
     /**
@@ -24,5 +30,7 @@ public class HotMovieListContact {
      */
     public interface IHotMoviePresenter {
         void getHotMovieList(int limit);
+
+        void getMoreHotMovieList(int headline, String movieIds);
     }
 }

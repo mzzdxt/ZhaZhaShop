@@ -74,6 +74,17 @@
                 tools:text="评分"/>
 
             <TextView
+                android:id="@+id/tv_hot_director"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/ll_hot_title"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginTop="@dimen/dp_6"
+                android:layout_toEndOf="@id/tv_hot_audience"
+                android:layout_toRightOf="@id/fl_hot_movie"
+                tools:text="主演：雪晴"/>
+
+            <TextView
                 android:id="@+id/tv_hot_desc"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

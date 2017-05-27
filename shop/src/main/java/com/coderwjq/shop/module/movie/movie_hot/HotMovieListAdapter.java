@@ -25,6 +25,7 @@ public class HotMovieListAdapter extends BaseMultiItemQuickAdapter<HotMovieBean.
     private static final String TAG = "HotMovieListAdapter";
     private final int mHighLightColor;
     private final Toastor mToastor;
+    private final int mHighLightColorDirector;
 
     /**
      * Same as QuickAdapter#QuickAdapter(Context,int) but with
@@ -36,6 +37,7 @@ public class HotMovieListAdapter extends BaseMultiItemQuickAdapter<HotMovieBean.
         addItemType(BaseConstant.TYPE_HOT_NORMAL, R.layout.item_hot_normal);
         mContext = context;
         mHighLightColor = mContext.getResources().getColor(R.color.text_yellow, null);
+        mHighLightColorDirector = mContext.getResources().getColor(R.color.colorAccent, null);
         mToastor = new Toastor(mContext);
     }
 
@@ -113,6 +115,18 @@ public class HotMovieListAdapter extends BaseMultiItemQuickAdapter<HotMovieBean.
                     }
                 });
                 helper.setText(R.id.tv_hot_director, "导演: 尼古拉斯·喳喳");
+                break;
+            case BaseConstant.TYPE_HOT_NORMAL:
+                if (item.getNm().contains("摔跤吧")) {
+                    helper.setText(R.id.tv_hot_director, "编剧: 尼古拉斯·雪晴");
+                    TextView tvDirector = helper.getView(R.id.tv_hot_director);
+                    String strDirector = tvDirector.getText().toString();
+                    SpannableString spannableString = new SpannableString(strDirector);
+                    spannableString.setSpan(new ForegroundColorSpan(mHighLightColorDirector), 3, spannableString.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+                    tvDirector.setText(spannableString);
+                } else {
+                    helper.setText(R.id.tv_hot_director, "");
+                }
                 break;
         }
 

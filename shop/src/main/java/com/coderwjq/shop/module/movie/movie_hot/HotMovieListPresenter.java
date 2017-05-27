@@ -5,7 +5,9 @@ import android.util.Log;
 
 import com.coderwjq.shop.base.BasePresenter;
 
+import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 
@@ -31,7 +33,6 @@ public class HotMovieListPresenter extends BasePresenter<HotMovieListContact.IHo
                 .subscribe(new Consumer<HotMovieBean>() {
                     @Override
                     public void accept(@NonNull HotMovieBean hotMovieBean) throws Exception {
-                        Log.e(TAG, "accept: " + hotMovieBean.toString());
                         mView.addHotMovieList(hotMovieBean.getData().getHot());
                         mView.addMovieIds(hotMovieBean.getData().getMovieIds());
                     }
@@ -45,6 +46,32 @@ public class HotMovieListPresenter extends BasePresenter<HotMovieListContact.IHo
                     @Override
                     public void run() throws Exception {
                         mView.showContent();
+                    }
+                });
+    }
+
+    @Override
+    public void getMoreHotMovieList(int headline, String movieIds) {
+        mHotMovieListManager.getMoreHotMovieList(headline, movieIds)
+                .subscribe(new Observer<HotMovieBean.DataBean.HotBean>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@NonNull HotMovieBean.DataBean.HotBean hotMovieBean) {
+                        mView.addMoreMovies(hotMovieBean);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        mView.addMoreError(e);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        mView.loadMoreCompleted();
                     }
                 });
     }
