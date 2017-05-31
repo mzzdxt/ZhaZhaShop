@@ -1,6 +1,9 @@
 package com.coderwjq.shop.network;
 
 import com.coderwjq.shop.module.movie.movie_hot.HotMovieBean;
+import com.coderwjq.shop.module.movie.movie_wait.bean.ExpectMovieBean;
+import com.coderwjq.shop.module.movie.movie_wait.bean.TrailerRecommendBean;
+import com.coderwjq.shop.module.movie.movie_wait.bean.WaitMovieBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -38,4 +41,29 @@ public interface ApiServer {
     Observable<HotMovieBean> getMoreHotMovieList(@Query("ci") int ci,
                                                  @Query("headline") int headline,
                                                  @Query("movieIds") String movieIds);
+
+    /**
+     * 待映-预告片推荐
+     * @sample http://api.maoyan.com/mmdb/movie/lp/list.json
+     */
+    @GET("/mmdb/movie/lp/list.json")
+    Observable<TrailerRecommendBean> getTrailerRecommend();
+
+    /**
+     * 待映-近期最受期待
+     */
+    @GET("mmdb/movie/v1/list/wish/order/coming.json")
+    Observable<ExpectMovieBean> getExpectMovieList(@Query("offset") int offset,
+                                                   @Query("limit") int limit);
+
+    /**
+     * 待映-列表
+     *
+     * @param ci
+     * @param limit
+     * @return
+     */
+    @GET("mmdb/movie/v2/list/rt/order/coming.json")
+    Observable<WaitMovieBean> getWaitMovieList(@Query("ci") int ci,
+                                               @Query("limit") int limit);
 }
