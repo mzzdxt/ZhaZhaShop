@@ -1,5 +1,8 @@
 package com.coderwjq.shop.network;
 
+import com.coderwjq.shop.module.movie.movie_find.model.AwardsMovieBean;
+import com.coderwjq.shop.module.movie.movie_find.model.GridMovieBean;
+import com.coderwjq.shop.module.movie.movie_find.model.MovieTypeBean;
 import com.coderwjq.shop.module.movie.movie_hot.HotMovieBean;
 import com.coderwjq.shop.module.movie.movie_wait.bean.ExpectMovieBean;
 import com.coderwjq.shop.module.movie.movie_wait.bean.TrailerRecommendBean;
@@ -7,6 +10,7 @@ import com.coderwjq.shop.module.movie.movie_wait.bean.WaitMovieBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -44,6 +48,7 @@ public interface ApiServer {
 
     /**
      * 待映-预告片推荐
+     *
      * @sample http://api.maoyan.com/mmdb/movie/lp/list.json
      */
     @GET("/mmdb/movie/lp/list.json")
@@ -66,4 +71,24 @@ public interface ApiServer {
     @GET("mmdb/movie/v2/list/rt/order/coming.json")
     Observable<WaitMovieBean> getWaitMovieList(@Query("ci") int ci,
                                                @Query("limit") int limit);
+
+    /**
+     * @return 电影分类
+     */
+    @GET("mmdb/search/movie/tag/types.json")
+    Observable<MovieTypeBean> getMovieTypeList();
+
+
+    /**
+     * @return 找片-表格
+     */
+    @GET("mmdb/movieboard/fixedboard/v1/hot/list.json")
+    Observable<GridMovieBean> getMovieGrid();
+
+    /**
+     * @param time
+     * @return 找片-获奖
+     */
+    @GET("mmdb/movie/winning/film/{time}/list.json")
+    Observable<AwardsMovieBean> getAwardsMovieList(@Path("time") String time);
 }

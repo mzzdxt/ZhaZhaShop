@@ -2,7 +2,6 @@ package com.coderwjq.shop.module.movie.movie_main;
 
 import android.graphics.Color;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -95,7 +94,6 @@ public class FragmentMovieMain extends BaseFragment implements ViewPager.OnPageC
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        Log.e(TAG, "onPageScrolled: " + position);
         boolean lessThanHalf = positionOffset < 0.5;
 
         // alpha变化范围：-255~255
