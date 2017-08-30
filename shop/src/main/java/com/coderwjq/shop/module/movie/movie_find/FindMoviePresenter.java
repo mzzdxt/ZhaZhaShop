@@ -47,6 +47,8 @@ public class FindMoviePresenter extends BasePresenter<FindMovieContract.IFindMov
                     public void onNext(@NonNull Object o) {
                         if (o instanceof MovieTypeBean) {
                             mView.addMovieType(((MovieTypeBean) o).getData().get(0).getTagList());
+                            mView.addMovieNation(((MovieTypeBean) o).getData().get(1).getTagList());
+                            mView.addMoviePeriod(((MovieTypeBean) o).getData().get(2).getTagList());
                         }
                     }
 

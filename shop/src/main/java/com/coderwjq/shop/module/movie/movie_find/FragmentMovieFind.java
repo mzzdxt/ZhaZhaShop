@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.coderwjq.shop.R;
 import com.coderwjq.shop.base.BaseFragment;
+import com.coderwjq.shop.module.movie.movie_find.adapter.FindMovieNationAdapter;
+import com.coderwjq.shop.module.movie.movie_find.adapter.FindMoviePeriodAdapter;
 import com.coderwjq.shop.module.movie.movie_find.adapter.FindMovieTypeAdapter;
 import com.coderwjq.shop.module.movie.movie_find.model.MovieTypeBean;
 import com.coderwjq.shop.view.MyPullToRefreshListener;
@@ -46,6 +48,8 @@ public class FragmentMovieFind extends BaseFragment implements FindMovieContract
     private MyPullToRefreshListener mRefreshListener;
     private FindMoviePresenter mFindMoviePresenter;
     private FindMovieTypeAdapter mFindMovieTypeAdapter;
+    private FindMovieNationAdapter mFindMovieNationAdapter;
+    private FindMoviePeriodAdapter mFindMoviePeriodAdapter;
 
     public static FragmentMovieFind getInstance() {
         return new FragmentMovieFind();
@@ -99,6 +103,18 @@ public class FragmentMovieFind extends BaseFragment implements FindMovieContract
         View headerViewType = mContext.getLayoutInflater().inflate(R.layout.layout_normal_tv, (ViewGroup) mRvMovieType.getParent(), false);
         ((TextView) headerViewType.findViewById(R.id.tv_content)).setText("类型");
         mFindMovieTypeAdapter.setHeaderView(headerViewType, 0, LinearLayout.HORIZONTAL);
+
+        mFindMovieNationAdapter = new FindMovieNationAdapter();
+        mRvMovieNation.setAdapter(mFindMovieNationAdapter);
+        View headerViewNation = mContext.getLayoutInflater().inflate(R.layout.layout_normal_tv, (ViewGroup) mRvMovieType.getParent(), false);
+        ((TextView) headerViewNation.findViewById(R.id.tv_content)).setText("地区");
+        mFindMovieNationAdapter.setHeaderView(headerViewNation, 0, LinearLayout.HORIZONTAL);
+
+        mFindMoviePeriodAdapter = new FindMoviePeriodAdapter();
+        mRvMoviePeriod.setAdapter(mFindMoviePeriodAdapter);
+        View headerViewPeriod = mContext.getLayoutInflater().inflate(R.layout.layout_normal_tv, (ViewGroup) mRvMovieType.getParent(), false);
+        ((TextView) headerViewPeriod.findViewById(R.id.tv_content)).setText("年代");
+        mFindMoviePeriodAdapter.setHeaderView(headerViewPeriod, 0, LinearLayout.HORIZONTAL);
     }
 
     @Override
@@ -140,11 +156,11 @@ public class FragmentMovieFind extends BaseFragment implements FindMovieContract
 
     @Override
     public void addMovieNation(List<MovieTypeBean.DataBean.TagListBean> tagList) {
-
+        mFindMovieNationAdapter.setNewData(tagList);
     }
 
     @Override
     public void addMoviePeriod(List<MovieTypeBean.DataBean.TagListBean> tagList) {
-
+        mFindMoviePeriodAdapter.setNewData(tagList);
     }
 }
