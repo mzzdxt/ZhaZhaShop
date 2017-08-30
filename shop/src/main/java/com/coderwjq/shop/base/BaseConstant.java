@@ -23,4 +23,10 @@ public interface BaseConstant {
     int TYPE_WAIT_TRAILER = 2; // 预告片
     int TYPE_WAIT_RECENT = 3; // 近期受期待
     int TYPE_WAIT_NORMAL = 4; // 正常
+
+    //发现列表2种类型的item
+    int TYPE_DISCOVER_ONE_IMG = 0;
+    int TYPE_DISCOVER_MULTI_IMG = 1;
+    int TYPE_DISCOVER_BIG_IMG = 2;
+    int TYPE_DISCOVER_ONE_BIG_IMG = 3;
 }

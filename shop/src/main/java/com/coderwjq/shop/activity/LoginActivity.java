@@ -79,6 +79,6 @@ public class LoginActivity extends AppCompatActivity {
                 mHud.dismiss();
                 MainActivity.invoke(LoginActivity.this, true);
             }
-        }, 2000);
+        }, 500);
     }
 }

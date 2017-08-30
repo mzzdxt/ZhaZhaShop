@@ -1,5 +1,7 @@
 package com.coderwjq.shop.network;
 
+import com.coderwjq.shop.module.discover.model.DiscoverBean;
+import com.coderwjq.shop.module.discover.model.DiscoverHeaderBean;
 import com.coderwjq.shop.module.movie.movie_find.model.AwardsMovieBean;
 import com.coderwjq.shop.module.movie.movie_find.model.GridMovieBean;
 import com.coderwjq.shop.module.movie.movie_find.model.MovieTypeBean;
@@ -91,4 +93,20 @@ public interface ApiServer {
      */
     @GET("mmdb/movie/winning/film/{time}/list.json")
     Observable<AwardsMovieBean> getAwardsMovieList(@Path("time") String time);
+
+    /**
+     * @param offset
+     * @param limit
+     * @return 发现的内容列表
+     */
+    @GET("/sns/v5/feed.json")
+    Observable<DiscoverBean> getDiscover(@Query("offset") int offset,
+                                         @Query("limit") int limit);
+
+    //发现列表的头部（今日Top10，影视快讯）
+    //两个查询参数必须填，缺一不可，最新版猫眼的参数为utm_medium=android&utm_term=7.8.0
+    //其中utm_term可以修改为其他参数，如utm_term=1
+    @GET("/sns/v2/buttons.json")
+    Observable<DiscoverHeaderBean> getDiscoverHeader(@Query("utm_medium") String utm_medium,
+                                                     @Query("utm_term") String utm_term);
 }

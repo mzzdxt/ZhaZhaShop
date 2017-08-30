@@ -1,34 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="发现"/>
-    <!--<include layout="@layout/layout_search" />-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@android:color/holo_blue_dark"
+        android:padding="6dp">
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/icon_coderwjq"
+            app:civ_border_color="#fff"
+            app:civ_border_width="@dimen/dp_2"/>
 
-    <!--<com.cicinnus.cateye.view.ProgressLayout-->
-    <!--android:id="@+id/progressLayout"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent">-->
+        <TextView
+            android:layout_width="62dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:focusable="false"
+            android:gravity="center"
+            android:paddingBottom="6dp"
+            android:paddingTop="6dp"
+            android:text="待映"
+            android:textColor="@android:color/white"
+            android:textSize="22sp"/>
 
-    <!--<com.cicinnus.cateye.view.SuperSwipeRefreshLayout-->
-    <!--android:id="@+id/swipe"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent">-->
+    </RelativeLayout>
 
-    <!--<android.support.v7.widget.RecyclerView-->
-    <!--android:id="@+id/rv_discover"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="match_parent" />-->
-    <!--</com.cicinnus.cateye.view.SuperSwipeRefreshLayout>-->
+    <com.coderwjq.shop.view.ProgressLayout
+        android:id="@+id/pl_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <!--</com.cicinnus.cateye.view.ProgressLayout>-->
+        <com.coderwjq.shop.view.SuperSwipeRefreshLayout
+            android:id="@+id/ssrl_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_discover"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/kprogresshud_grey_color">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </com.coderwjq.shop.view.SuperSwipeRefreshLayout>
+    </com.coderwjq.shop.view.ProgressLayout>
 
 </LinearLayout>
