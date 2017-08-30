@@ -10,9 +10,13 @@ import android.widget.TextView;
 
 import com.coderwjq.shop.R;
 import com.coderwjq.shop.base.BaseFragment;
+import com.coderwjq.shop.module.movie.movie_find.adapter.FindMovieAwardAdapter;
+import com.coderwjq.shop.module.movie.movie_find.adapter.FindMovieGridAdapter;
 import com.coderwjq.shop.module.movie.movie_find.adapter.FindMovieNationAdapter;
 import com.coderwjq.shop.module.movie.movie_find.adapter.FindMoviePeriodAdapter;
 import com.coderwjq.shop.module.movie.movie_find.adapter.FindMovieTypeAdapter;
+import com.coderwjq.shop.module.movie.movie_find.model.AwardsMovieBean;
+import com.coderwjq.shop.module.movie.movie_find.model.GridMovieBean;
 import com.coderwjq.shop.module.movie.movie_find.model.MovieTypeBean;
 import com.coderwjq.shop.view.MyPullToRefreshListener;
 import com.coderwjq.shop.view.ProgressLayout;
@@ -50,6 +54,8 @@ public class FragmentMovieFind extends BaseFragment implements FindMovieContract
     private FindMovieTypeAdapter mFindMovieTypeAdapter;
     private FindMovieNationAdapter mFindMovieNationAdapter;
     private FindMoviePeriodAdapter mFindMoviePeriodAdapter;
+    private FindMovieGridAdapter mFindMovieGridAdapter;
+    private FindMovieAwardAdapter mFindMovieAwardAdapter;
 
     public static FragmentMovieFind getInstance() {
         return new FragmentMovieFind();
@@ -115,6 +121,13 @@ public class FragmentMovieFind extends BaseFragment implements FindMovieContract
         View headerViewPeriod = mContext.getLayoutInflater().inflate(R.layout.layout_normal_tv, (ViewGroup) mRvMovieType.getParent(), false);
         ((TextView) headerViewPeriod.findViewById(R.id.tv_content)).setText("年代");
         mFindMoviePeriodAdapter.setHeaderView(headerViewPeriod, 0, LinearLayout.HORIZONTAL);
+
+        mFindMovieGridAdapter = new FindMovieGridAdapter();
+        mRvFindMovieGrid.setAdapter(mFindMovieGridAdapter);
+        mRvFindMovieGrid.setNestedScrollingEnabled(false);
+
+        mFindMovieAwardAdapter = new FindMovieAwardAdapter();
+        mRvMovieAwards.setAdapter(mFindMovieAwardAdapter);
     }
 
     @Override
@@ -162,5 +175,15 @@ public class FragmentMovieFind extends BaseFragment implements FindMovieContract
     @Override
     public void addMoviePeriod(List<MovieTypeBean.DataBean.TagListBean> tagList) {
         mFindMoviePeriodAdapter.setNewData(tagList);
+    }
+
+    @Override
+    public void addMovieGrid(List<GridMovieBean.DataBean> data) {
+        mFindMovieGridAdapter.setNewData(data);
+    }
+
+    @Override
+    public void addAwardsMovie(List<AwardsMovieBean.DataBean> data) {
+        mFindMovieAwardAdapter.setNewData(data);
     }
 }

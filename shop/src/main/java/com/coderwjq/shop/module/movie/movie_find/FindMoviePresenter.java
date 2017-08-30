@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.util.Log;
 
 import com.coderwjq.shop.base.BasePresenter;
+import com.coderwjq.shop.module.movie.movie_find.model.AwardsMovieBean;
+import com.coderwjq.shop.module.movie.movie_find.model.GridMovieBean;
 import com.coderwjq.shop.module.movie.movie_find.model.MovieTypeBean;
 import com.coderwjq.shop.utils.ErrorHanding;
 
@@ -49,6 +51,10 @@ public class FindMoviePresenter extends BasePresenter<FindMovieContract.IFindMov
                             mView.addMovieType(((MovieTypeBean) o).getData().get(0).getTagList());
                             mView.addMovieNation(((MovieTypeBean) o).getData().get(1).getTagList());
                             mView.addMoviePeriod(((MovieTypeBean) o).getData().get(2).getTagList());
+                        } else if (o instanceof GridMovieBean) {
+                            mView.addMovieGrid(((GridMovieBean) o).getData());
+                        } else if (o instanceof AwardsMovieBean) {
+                            mView.addAwardsMovie(((AwardsMovieBean) o).getData());
                         }
                     }
 
