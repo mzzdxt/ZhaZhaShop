@@ -12,6 +12,7 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.coderwjq.shop.R;
 import com.coderwjq.shop.base.BaseConstant;
+import com.coderwjq.shop.module.movieDetail.MovieDetailActivity;
 import com.coderwjq.shop.utils.GlideManager;
 import com.coderwjq.shop.utils.ImgSizeUtil;
 import com.litesuits.common.assist.Toastor;
@@ -141,7 +142,7 @@ public class HotMovieListAdapter extends BaseMultiItemQuickAdapter<HotMovieBean.
         helper.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mToastor.showSingletonToast(item.getId() + "");
+                MovieDetailActivity.invoke(mContext, item.getId());
             }
         });
     }

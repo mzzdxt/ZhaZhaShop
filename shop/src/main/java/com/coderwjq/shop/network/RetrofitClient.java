@@ -40,4 +40,8 @@ public class RetrofitClient {
     public ApiServer apiServer() {
         return RetrofitClient.mInstance.create(ApiServer.class);
     }
+
+    public ApiMovieDetailService apiMovieDetailService() {
+        return RetrofitClient.mInstance.create(ApiMovieDetailService.class);
+    }
 }

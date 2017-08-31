@@ -25,6 +25,8 @@
         <activity android:name=".activity.LoginActivity">
         </activity>
         <activity android:name=".activity.RegistActivity"/>
+        <!--电影详细信息-->
+        <activity android:name=".module.movieDetail.MovieDetailActivity"/>
     </application>
 
 </manifest>

@@ -2,10 +2,6 @@ package com.coderwjq.shop.utils;
 
 import android.support.annotation.NonNull;
 
-/**
- * Created by Administrator on 2017/2/3.
- */
-
 public class ImgSizeUtil {
 
     // 部分图片通过拼接url

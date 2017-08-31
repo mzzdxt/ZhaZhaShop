@@ -132,6 +132,10 @@ public class FragmentMovieFind extends BaseFragment implements FindMovieContract
 
     @Override
     public void showLoading() {
+        if (!isAdded()) {
+            return;
+        }
+
         if (!mPlContainer.isContent()) {
             mPlContainer.showLoading();
 
@@ -143,6 +147,10 @@ public class FragmentMovieFind extends BaseFragment implements FindMovieContract
 
     @Override
     public void showContent() {
+        if (!isAdded()) {
+            return;
+        }
+
         mRefreshListener.refreshDone();
 
         if (!mPlContainer.isContent()) {
@@ -152,6 +160,10 @@ public class FragmentMovieFind extends BaseFragment implements FindMovieContract
 
     @Override
     public void showError(String error) {
+        if (!isAdded()) {
+            return;
+        }
+        
         mRefreshListener.refreshDone();
 
         mPlContainer.showError(new View.OnClickListener() {

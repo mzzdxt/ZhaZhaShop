@@ -29,4 +29,8 @@ public interface BaseConstant {
     int TYPE_DISCOVER_MULTI_IMG = 1;
     int TYPE_DISCOVER_BIG_IMG = 2;
     int TYPE_DISCOVER_ONE_BIG_IMG = 3;
+
+    //视频/图片
+    int TYPE_MOVIE_DETAIL_VEDIO = 0;
+    int TYPE_MOVIE_DETAIL_PHOTO = 1;
 }
