@@ -1,17 +1,17 @@
 package com.coderwjq.shop.network;
 
-import com.coderwjq.shop.module.movieDetail.model.MovieAwardsBean;
-import com.coderwjq.shop.module.movieDetail.model.MovieBasicDataBean;
-import com.coderwjq.shop.module.movieDetail.model.MovieCommentTagBean;
-import com.coderwjq.shop.module.movieDetail.model.MovieLongCommentBean;
-import com.coderwjq.shop.module.movieDetail.model.MovieMoneyBoxBean;
-import com.coderwjq.shop.module.movieDetail.model.MovieProCommentBean;
-import com.coderwjq.shop.module.movieDetail.model.MovieRelatedInformationBean;
-import com.coderwjq.shop.module.movieDetail.model.MovieResourceBean;
-import com.coderwjq.shop.module.movieDetail.model.MovieStarBean;
-import com.coderwjq.shop.module.movieDetail.model.MovieTipsBean;
-import com.coderwjq.shop.module.movieDetail.model.MovieTopicBean;
-import com.coderwjq.shop.module.movieDetail.model.RelatedMovieBean;
+import com.coderwjq.shop.module.movie_detail.model.MovieAwardsBean;
+import com.coderwjq.shop.module.movie_detail.model.MovieBasicDataBean;
+import com.coderwjq.shop.module.movie_detail.model.MovieCommentTagBean;
+import com.coderwjq.shop.module.movie_detail.model.MovieLongCommentBean;
+import com.coderwjq.shop.module.movie_detail.model.MovieMoneyBoxBean;
+import com.coderwjq.shop.module.movie_detail.model.MovieProCommentBean;
+import com.coderwjq.shop.module.movie_detail.model.MovieRelatedInformationBean;
+import com.coderwjq.shop.module.movie_detail.model.MovieResourceBean;
+import com.coderwjq.shop.module.movie_detail.model.MovieStarBean;
+import com.coderwjq.shop.module.movie_detail.model.MovieTipsBean;
+import com.coderwjq.shop.module.movie_detail.model.MovieTopicBean;
+import com.coderwjq.shop.module.movie_detail.model.RelatedMovieBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;

@@ -12,7 +12,8 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.coderwjq.shop.R;
 import com.coderwjq.shop.base.BaseConstant;
-import com.coderwjq.shop.module.movieDetail.MovieDetailActivity;
+import com.coderwjq.shop.module.movie_detail.MovieDetailActivity;
+import com.coderwjq.shop.module.player.VideoPlayerActivity;
 import com.coderwjq.shop.utils.GlideManager;
 import com.coderwjq.shop.utils.ImgSizeUtil;
 import com.litesuits.common.assist.Toastor;
@@ -50,7 +51,7 @@ public class HotMovieListAdapter extends BaseMultiItemQuickAdapter<HotMovieBean.
                 .setText(R.id.tv_hot_showInfo, String.format("%s", item.getShowInfo()));
 
         // 设置图片内容
-        String imgUrl = ImgSizeUtil.resetPicUrl(item.getImg(), ".webp@171w_240h_1e_1c_1l");
+        final String imgUrl = ImgSizeUtil.resetPicUrl(item.getImg(), ".webp@171w_240h_1e_1c_1l");
         GlideManager.loadImage(mContext, imgUrl, (ImageView) helper.getView(R.id.iv_hot_img));
 
         // 设置电影类型：3D/IMAX
@@ -125,6 +126,13 @@ public class HotMovieListAdapter extends BaseMultiItemQuickAdapter<HotMovieBean.
                     SpannableString spannableString = new SpannableString(strDirector);
                     spannableString.setSpan(new ForegroundColorSpan(mHighLightColorDirector), 3, spannableString.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
                     tvDirector.setText(spannableString);
+                } else if (item.getNm().contains("敦刻尔克")) {
+                    helper.setText(R.id.tv_hot_director, "导演: 尼古拉斯·喳喳");
+                    TextView tvDirector = helper.getView(R.id.tv_hot_director);
+                    String strDirector = tvDirector.getText().toString();
+                    SpannableString spannableString = new SpannableString(strDirector);
+                    spannableString.setSpan(new ForegroundColorSpan(mHighLightColorDirector), 3, spannableString.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+                    tvDirector.setText(spannableString);
                 } else {
                     helper.setText(R.id.tv_hot_director, "");
                 }
@@ -135,7 +143,7 @@ public class HotMovieListAdapter extends BaseMultiItemQuickAdapter<HotMovieBean.
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        mToastor.showSingletonToast(item.getVideoName());
+                        VideoPlayerActivity.invoke(mContext, item.getId(), item.getVideoId(), item.getVideoName(), item.getVideourl());
                     }
                 });
 

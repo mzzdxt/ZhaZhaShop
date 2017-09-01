@@ -44,4 +44,8 @@ public class RetrofitClient {
     public ApiMovieDetailService apiMovieDetailService() {
         return RetrofitClient.mInstance.create(ApiMovieDetailService.class);
     }
+
+    public ApiMovieVideoService apiMovieVideoService() {
+        return RetrofitClient.mInstance.create(ApiMovieVideoService.class);
+    }
 }
