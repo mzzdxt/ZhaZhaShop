@@ -24,4 +24,5 @@
     <color name="text_yellow">#ffb400</color>
     <color name="text_blue">#12a2f1</color>
     <color name="text_gray">#999999</color>
+    <color name="text_gray_deep">#666666</color>
 </resources>

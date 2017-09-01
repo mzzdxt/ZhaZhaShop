@@ -10,10 +10,12 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,7 +23,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.coderwjq.shop.R;
+import com.coderwjq.shop.module.movieDetail.adapter.MovieAwardsAdapter;
+import com.coderwjq.shop.module.movieDetail.adapter.MovieLongCommentAdapter;
 import com.coderwjq.shop.module.movieDetail.adapter.MoviePhotosAdapter;
+import com.coderwjq.shop.module.movieDetail.adapter.MovieProCommentAdapter;
+import com.coderwjq.shop.module.movieDetail.adapter.MovieResourceAdapter;
+import com.coderwjq.shop.module.movieDetail.adapter.MovieStarListAdapter;
+import com.coderwjq.shop.module.movieDetail.adapter.MovieTipsAdapter;
+import com.coderwjq.shop.module.movieDetail.adapter.RelatedMovieAdapter;
 import com.coderwjq.shop.module.movieDetail.model.MovieAwardsBean;
 import com.coderwjq.shop.module.movieDetail.model.MovieBasicDataBean;
 import com.coderwjq.shop.module.movieDetail.model.MovieCommentTagBean;
@@ -44,6 +53,8 @@ import com.coderwjq.shop.utils.ToastUtil;
 import com.coderwjq.shop.utils.UIUtils;
 import com.coderwjq.shop.view.ExpandTextView;
 import com.coderwjq.shop.view.ProgressLayout;
+import com.zhy.view.flowlayout.FlowLayout;
+import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
 import java.io.IOException;
@@ -54,12 +65,14 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -275,6 +288,14 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
                 mTvSubTitle.setTextColor(Color.argb((int) alpha, 255, 255, 255));
             }
         });
+
+        // 返回按钮
+        mRlBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void handleIntent() {
@@ -378,8 +399,8 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
                     }
                 })
                 .toList()
-                .observeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<MoviePhotosBean>>() {
                     @Override
                     public void accept(@NonNull List<MoviePhotosBean> moviePhotosBeen) throws Exception {
@@ -477,57 +498,418 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
     }
 
     @Override
-    public void addMovieTips(MovieTipsBean.DataBean tips) {
-
+    public void addMovieTips(final MovieTipsBean.DataBean tips) {
+        Observable.just(tips.getTips())
+                .flatMap(new Function<List<MovieTipsBean.DataBean.TipsBean>, ObservableSource<MovieTipsBean.DataBean.TipsBean>>() {
+                    @Override
+                    public ObservableSource<MovieTipsBean.DataBean.TipsBean> apply(@NonNull List<MovieTipsBean.DataBean.TipsBean> tipsBeen) throws Exception {
+                        if (tipsBeen != null && tipsBeen.size() > 0) {
+                            return Observable.fromIterable(tipsBeen);
+                        }
+                        return Observable.error(new Exception("empty data"));
+                    }
+                })
+                .toList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<MovieTipsBean.DataBean.TipsBean>>() {
+                    @Override
+                    public void accept(@NonNull List<MovieTipsBean.DataBean.TipsBean> tipsBeen) throws Exception {
+                        MovieTipsAdapter movieTipsAdapter = new MovieTipsAdapter();
+                        mRvMovieTips.setLayoutManager(new LinearLayoutManager(MovieDetailActivity.this));
+                        mRvMovieTips.setNestedScrollingEnabled(false);
+                        mRvMovieTips.setAdapter(movieTipsAdapter);
+                        movieTipsAdapter.setNewData(tipsBeen);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(@NonNull Throwable throwable) throws Exception {
+                        mLlTips.setVisibility(View.GONE);
+                    }
+                });
     }
 
     @Override
     public void addMovieStarList(MovieStarBean movieStarBean) {
-
+        Observable.just(movieStarBean.getData())
+                .flatMap(new Function<List<List<MovieStarBean.DataBean>>, ObservableSource<List<MovieStarBean.DataBean>>>() {
+                    @Override
+                    public ObservableSource<List<MovieStarBean.DataBean>> apply(@NonNull List<List<MovieStarBean.DataBean>> lists) throws Exception {
+                        return Observable.fromIterable(lists);
+                    }
+                })
+                .flatMap(new Function<List<MovieStarBean.DataBean>, ObservableSource<MovieStarBean.DataBean>>() {
+                    @Override
+                    public ObservableSource<MovieStarBean.DataBean> apply(@NonNull List<MovieStarBean.DataBean> dataBeen) throws Exception {
+                        return Observable.fromIterable(dataBeen);
+                    }
+                })
+                .toList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<MovieStarBean.DataBean>>() {
+                    @Override
+                    public void accept(@NonNull List<MovieStarBean.DataBean> dataBeen) throws Exception {
+                        MovieStarListAdapter movieStarListAdapter = new MovieStarListAdapter();
+                        mRvMovieStar.setAdapter(movieStarListAdapter);
+                        mRvMovieStar.setLayoutManager(new LinearLayoutManager(MovieDetailActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                        movieStarListAdapter.setNewData(dataBeen);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(@NonNull Throwable throwable) throws Exception {
+                        Log.e(TAG, "accept: " + ErrorHanding.handleError(throwable), throwable);
+                    }
+                });
     }
 
     @Override
-    public void addMovieMoneyBox(MovieMoneyBoxBean moneyBoxBean) {
+    public void addMovieMoneyBox(final MovieMoneyBoxBean moneyBoxBean) {
+        mRlMoneyBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtil.showShort(MovieDetailActivity.this, moneyBoxBean.getUrl());
+            }
+        });
 
+        if (moneyBoxBean.getMbox().getFirstWeekBox() == 0
+                && moneyBoxBean.getMbox().getFirstWeekOverSeaBox() == 0
+                && moneyBoxBean.getMbox().getLastDayRank() == 0
+                && moneyBoxBean.getMbox().getSumBox() == 0
+                && moneyBoxBean.getMbox().getSumOverSeaBox() == 0) {
+            mRlMoneyBox.setVisibility(View.GONE);
+            mLlMoneyBox.setVisibility(View.GONE);
+        }
+
+        if (moneyBoxBean.getMbox().getFirstWeekBox() == 0) {
+            mTvFirstWeekBox.setTextColor(getResources().getColor(R.color.text_gray));
+            mTvFirstWeekBox.setText("暂无");
+        } else {
+            mTvFirstWeekBox.setText(String.format("%s", moneyBoxBean.getMbox().getFirstWeekBox()));
+        }
+
+        if (moneyBoxBean.isGlobalRelease()) {
+            mTvSumBoxContent.setText("累计票房(万)");
+        } else {
+            mTvSumBoxContent.setText("点映票房(万)");
+        }
+
+        mTvLastDayRank.setText(String.format("%s", moneyBoxBean.getMbox().getLastDayRank()));
+        mTvSumBox.setText(String.format("%s", moneyBoxBean.getMbox().getSumBox()));
     }
 
     @Override
     public void addMovieAwards(List<MovieAwardsBean.DataBean> movieAwards) {
+        Observable
+                .fromIterable(movieAwards)
+                .filter(new Predicate<MovieAwardsBean.DataBean>() {
+                    @Override
+                    public boolean test(@NonNull MovieAwardsBean.DataBean dataBean) throws Exception {
+                        return dataBean.getItems().size() > 0;
+                    }
+                })
+                .map(new Function<MovieAwardsBean.DataBean, String>() {
+                    @Override
+                    public String apply(@NonNull MovieAwardsBean.DataBean dataBean) throws Exception {
+                        String awardsName = "";
+                        for (int i = 0; i < dataBean.getItems().size(); i++) {
+                            awardsName = dataBean.getTitle();
+                            awardsName = awardsName + dataBean.getItems().get(i).getTitle();
+                        }
+                        return awardsName;
+                    }
+                })
+                .toList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<String>>() {
+                    @Override
+                    public void accept(@NonNull List<String> strings) throws Exception {
+                        MovieAwardsAdapter movieAwardsAdapter = new MovieAwardsAdapter();
+                        mRvMovieAwards.setLayoutManager(new LinearLayoutManager(MovieDetailActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                        mRvMovieAwards.setAdapter(movieAwardsAdapter);
+                        movieAwardsAdapter.setNewData(strings);
+                    }
+                });
 
     }
 
+    /**
+     * 影片资料
+     *
+     * @param movieResources
+     */
     @Override
     public void addMovieResource(List<MovieResourceBean.DataBean> movieResources) {
-
+        for (int i = 0; i < movieResources.size(); i++) {
+            if (movieResources.get(i).getName().equals("filmMusics")) {
+                movieResources.remove(i);
+            }
+        }
+        MovieResourceAdapter movieResourceAdapter = new MovieResourceAdapter();
+        movieResourceAdapter.setMovieResourceClickListener(new MovieResourceAdapter.IMovieResourceClickListener() {
+            @Override
+            public void onClick(String type) {
+                switch (type) {
+                    case "highlights":
+//                        MovieResourceActivity.start(mContext, movieId, "highlights");
+                        break;
+                    case "technicals":
+//                        MovieResourceActivity.start(mContext, movieId, "technicals");
+                        break;
+                    case "dialogues":
+//                        MovieResourceActivity.start(mContext, movieId, "dialogues");
+                        break;
+                    case "relatedCompanies":
+//                        MovieResourceActivity.start(mContext, movieId, "relatedCompanies");
+                        break;
+                    case "parentguidances":
+//                        MovieResourceActivity.start(mContext, movieId, "parentguidances");
+                        break;
+                }
+            }
+        });
+        mRvMovieResource.setLayoutManager(new GridLayoutManager(MovieDetailActivity.this, 2));
+        mRvMovieResource.setAdapter(movieResourceAdapter);
+        mRvMovieResource.setNestedScrollingEnabled(false);
+        movieResourceAdapter.setNewData(movieResources);
     }
 
     @Override
     public void addMovieCommentTag(List<MovieCommentTagBean.DataBean> commentTags) {
-
+        commentTags.add(0, new MovieCommentTagBean.DataBean(0, mMovieId, 0, "全部"));
+        Observable.just(commentTags)
+                .flatMap(new Function<List<MovieCommentTagBean.DataBean>, ObservableSource<MovieCommentTagBean.DataBean>>() {
+                    @Override
+                    public ObservableSource<MovieCommentTagBean.DataBean> apply(@NonNull List<MovieCommentTagBean.DataBean> dataBeen) throws Exception {
+                        if (dataBeen.size() > 1) {
+                            return Observable.fromIterable(dataBeen);
+                        }
+                        return Observable.error(new Exception("empty data"));
+                    }
+                })
+                .map(new Function<MovieCommentTagBean.DataBean, String>() {
+                    @Override
+                    public String apply(@NonNull MovieCommentTagBean.DataBean dataBean) throws Exception {
+                        if (dataBean.getCount() == 0) {
+                            return dataBean.getTagName();
+                        } else {
+                            return dataBean.getTagName() + " " + dataBean.getCount();
+                        }
+                    }
+                })
+                .toList()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<List<String>>() {
+                    @Override
+                    public void accept(@NonNull List<String> strings) throws Exception {
+                        mFlowLayout.setAdapter(new TagAdapter<String>(strings) {
+                            @Override
+                            public View getView(FlowLayout parent, int position, String s) {
+                                TextView tv = (TextView) getLayoutInflater().inflate(R.layout.layout_flow_tv, mFlowLayout, false);
+                                tv.setText(s);
+                                return tv;
+                            }
+                        });
+                    }
+                });
     }
 
     @Override
     public void addMovieLongComment(MovieLongCommentBean.DataBean movieLongComments) {
-
+        Observable.just(movieLongComments)
+                .flatMap(new Function<MovieLongCommentBean.DataBean, ObservableSource<MovieLongCommentBean.DataBean>>() {
+                    @Override
+                    public ObservableSource<MovieLongCommentBean.DataBean> apply(@NonNull MovieLongCommentBean.DataBean dataBean) throws Exception {
+                        if (dataBean.getFilmReviews().size() > 0) {
+                            return Observable.just(dataBean);
+                        }
+                        return Observable.error(new Exception("empty error"));
+                    }
+                })
+                .observeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<MovieLongCommentBean.DataBean>() {
+                    @Override
+                    public void accept(@NonNull MovieLongCommentBean.DataBean dataBean) throws Exception {
+                        MovieLongCommentAdapter movieLongCommentAdapter = new MovieLongCommentAdapter();
+                        mRvLongComment.setLayoutManager(new LinearLayoutManager(MovieDetailActivity.this));
+                        mRvLongComment.setAdapter(movieLongCommentAdapter);
+                        mRvLongComment.setNestedScrollingEnabled(false);
+                        movieLongCommentAdapter.setNewData(dataBean.getFilmReviews());
+                        View footer = getLayoutInflater().inflate(R.layout.item_normal_list_footer, (ViewGroup) mRvLongComment.getParent(), false);
+                        footer.setBackgroundResource(R.color.white);
+                        ((TextView) footer.findViewById(R.id.tv_footer)).setText(String.format("查看全部%s条长评论", dataBean.getTotal()));
+                        footer.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ToastUtil.showShort(MovieDetailActivity.this, mTitle);
+//                                MovieLongCommentActivity.start(mContext, movieId, mTitle);
+                            }
+                        });
+                        movieLongCommentAdapter.addFooterView(footer);
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(@NonNull Throwable throwable) throws Exception {
+                        mTvLongComment.setVisibility(View.INVISIBLE);
+                        mTvNoLongComment.setVisibility(View.VISIBLE);
+                    }
+                });
     }
 
     @Override
     public void addMovieRelatedInformation(List<MovieRelatedInformationBean.DataBean.NewsListBean> newsListBean) {
+        Observable.just(newsListBean)
+                .flatMap(new Function<List<MovieRelatedInformationBean.DataBean.NewsListBean>, ObservableSource<MovieRelatedInformationBean.DataBean.NewsListBean>>() {
+                    @Override
+                    public ObservableSource<MovieRelatedInformationBean.DataBean.NewsListBean> apply(@NonNull List<MovieRelatedInformationBean.DataBean.NewsListBean> newsListBeen) throws Exception {
+                        if (newsListBeen.size() > 0) {
+                            return Observable.fromIterable(newsListBeen);
+                        }
+                        return Observable.error(new Exception("empty data"));
+                    }
+                })
+                .observeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<MovieRelatedInformationBean.DataBean.NewsListBean>() {
+                    @Override
+                    public void accept(@NonNull final MovieRelatedInformationBean.DataBean.NewsListBean newsListBean) throws Exception {
+                        mTvRelatedInformationTitle.setText(newsListBean.getTitle());
+                        mTvRelatedInformationAuthor.setText(newsListBean.getSource());
+                        mTvRelatedInformationViewCount.setText(String.format("%s", newsListBean.getViewCount()));
+                        mTvRelatedInformationCommentCount.setText(String.format("%s", newsListBean.getCommentCount()));
 
+                        GlideManager.loadImage(MovieDetailActivity.this, newsListBean.getPreviewImages().get(0).getUrl(), mIvRelatedInformation);
+
+                        mLlRelatedInformationContent.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ToastUtil.showShort(MovieDetailActivity.this, StringUtil.getRealUrl(newsListBean.getUrl()));
+//                                BaseWebViewActivity.start(mContext, StringUtil.getRealUrl(newsListBean.getUrl()));
+                            }
+                        });
+                        mLlAllRelatedInformation.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ToastUtil.showShort(MovieDetailActivity.this, mTitle);
+//                                MovieInformationActivity.start(mContext, movieId, mTitle);
+                            }
+                        });
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(@NonNull Throwable throwable) throws Exception {
+                        mLlRelatedInformation.setVisibility(View.GONE);
+                    }
+                });
     }
 
     @Override
     public void addRelatedMovie(List<RelatedMovieBean.DataBean> relatedMovies) {
-
+        Observable.just(relatedMovies)
+                .flatMap(new Function<List<RelatedMovieBean.DataBean>, ObservableSource<RelatedMovieBean.DataBean>>() {
+                    @Override
+                    public ObservableSource<RelatedMovieBean.DataBean> apply(@NonNull List<RelatedMovieBean.DataBean> dataBeen) throws Exception {
+                        if (dataBeen.get(0).getItems().size() > 0) {
+                            return Observable.just(dataBeen.get(0));
+                        }
+                        return Observable.error(new Exception("empty data"));
+                    }
+                })
+                .observeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Consumer<RelatedMovieBean.DataBean>() {
+                    @Override
+                    public void accept(@NonNull RelatedMovieBean.DataBean dataBean) throws Exception {
+                        RelatedMovieAdapter relatedMovieAdapter = new RelatedMovieAdapter();
+                        mRvRelatedMovie.setLayoutManager(new LinearLayoutManager(MovieDetailActivity.this, LinearLayoutManager.HORIZONTAL, false));
+                        mRvRelatedMovie.setAdapter(relatedMovieAdapter);
+                        relatedMovieAdapter.setNewData(dataBean.getItems());
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(@NonNull Throwable throwable) throws Exception {
+                        mLlRelatedMovie.setVisibility(View.GONE);
+                    }
+                });
     }
 
     @Override
     public void addMovieTopic(MovieTopicBean.DataBean movieTopicBean) {
+        Observable.just(movieTopicBean)
+                .flatMap(new Function<MovieTopicBean.DataBean, ObservableSource<MovieTopicBean.DataBean.TopicsBean>>() {
+                    @Override
+                    public ObservableSource<MovieTopicBean.DataBean.TopicsBean> apply(@NonNull MovieTopicBean.DataBean dataBean) throws Exception {
+                        if (dataBean.getTopics().size() > 0) {
+                            return Observable.fromIterable(dataBean.getTopics());
+                        }
+                        return Observable.error(new Exception("empty Data"));
+                    }
+                })
+                .observeOn(Schedulers.io())
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<MovieTopicBean.DataBean.TopicsBean>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
 
+                    }
+
+                    @Override
+                    public void onNext(@NonNull final MovieTopicBean.DataBean.TopicsBean topicsBean) {
+                        if (topicsBean.getPreviews().get(0).getUrl() != null) {
+                            GlideManager.loadImage(MovieDetailActivity.this, topicsBean.getPreviews().get(0).getUrl(), mIvRelatedTopic);
+                        } else {
+                            mIvRelatedTopic.setVisibility(View.GONE);
+                        }
+                        mTvRelatedTopicTitle.setText(topicsBean.getTitle());
+                        mTvRelatedTopicAuthor.setText(topicsBean.getAuthor().getNickName());
+                        mTvRelatedTopicViewCount.setText(String.format("%s", topicsBean.getViewCount()));
+                        mTvRelatedTopicCommentCount.setText(String.format("%s", topicsBean.getCommentCount()));
+                        mLlRelatedTopic.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                ToastUtil.showShort(MovieDetailActivity.this, String.valueOf(topicsBean.getGroupId()));
+//                                MovieTopicActivity.start(mContext, topicsBean.getGroupId());
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        mLlRelatedTopic.setVisibility(View.GONE);
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     @Override
     public void addMovieProComment(MovieProCommentBean data) {
+        if (data.getData().size() == 0) {
+            mLlProComment.setVisibility(View.GONE);
+            return;
+        }
 
+        mRvMovieProComment.setLayoutManager(new LinearLayoutManager(MovieDetailActivity.this));
+        mRvMovieProComment.setNestedScrollingEnabled(false);
+        MovieProCommentAdapter movieProCommentAdapter = new MovieProCommentAdapter();
+        mRvMovieProComment.setAdapter(movieProCommentAdapter);
+        View footer = getLayoutInflater().inflate(R.layout.item_normal_list_footer, (ViewGroup) mRvLongComment.getParent(), false);
+        footer.setBackgroundResource(R.color.white);
+        ((TextView) footer.findViewById(R.id.tv_footer)).setText(String.format("查看全部%s条专业评论", data.getPaging().getTotal()));
+        footer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtil.showShort(MovieDetailActivity.this, mTitle);
+//                MovieProCommentActivity.start(mContext, movieId, mTitle);
+            }
+        });
+        movieProCommentAdapter.addFooterView(footer);
+        movieProCommentAdapter.setNewData(data.getData());
     }
 }

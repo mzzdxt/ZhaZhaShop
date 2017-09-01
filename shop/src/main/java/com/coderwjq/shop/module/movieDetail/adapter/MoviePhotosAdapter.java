@@ -13,7 +13,7 @@ import com.coderwjq.shop.utils.ImgSizeUtil;
 import com.coderwjq.shop.utils.ToastUtil;
 
 /**
- * Created by Cicinnus on 2017/2/11.
+ * Created by coderwjq on 2017/8/31 9:08.
  */
 
 public class MoviePhotosAdapter extends BaseMultiItemQuickAdapter<MoviePhotosBean, BaseViewHolder> {
