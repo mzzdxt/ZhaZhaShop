@@ -703,7 +703,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<List<String>>() {
                     @Override
-                    public void accept(@NonNull List<String> strings) throws Exception {
+                    public void accept(@NonNull final List<String> strings) throws Exception {
                         mFlowLayout.setAdapter(new TagAdapter<String>(strings) {
                             @Override
                             public View getView(FlowLayout parent, int position, String s) {
@@ -712,6 +712,18 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
                                 return tv;
                             }
                         });
+                        mFlowLayout.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
+                            @Override
+                            public boolean onTagClick(View view, int position, FlowLayout parent) {
+                                ToastUtil.showShort(MovieDetailActivity.this, strings.get(position));
+                                return true;
+                            }
+                        });
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(@NonNull Throwable throwable) throws Exception {
+                        Log.e(TAG, "accept: " + ErrorHanding.handleError(throwable), throwable);
                     }
                 });
     }
