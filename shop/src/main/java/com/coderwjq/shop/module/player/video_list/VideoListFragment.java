@@ -62,6 +62,7 @@ public class VideoListFragment extends BaseFragment implements VideoListContract
     private VideoListAdapter mVideoListAdapter;
     private MyPullToRefreshListener mRefreshListener;
     private int offset;
+    private boolean isFirst = true;
 
     public static VideoListFragment getInstance(int movieId, boolean isMv, MovieMusicBean.DataBean.ItemsBean.VideoTagVOBean dataBean) {
         Bundle args = new Bundle();
@@ -177,14 +178,21 @@ public class VideoListFragment extends BaseFragment implements VideoListContract
 
     @Override
     public void addVideoList(List<VideoListBean.DataBean> data) {
-        Log.d(TAG, "addVideoList() called with: data = [" + data + "]");
+        if (isFirst) {
+            mVideoListAdapter.setCurrentVideoId(data.get(0).getId());
+            isFirst = false;
+        }
+
         // 此处有严重bug...待修复
         offset += 10;
         mVideoListBean.addAll(data);
+        Log.d(TAG, "addVideoList() called with: isMv = [" + mIsMv + "]");
         // 将第一个数据设为选中状态,因为默认播放第一个视频
         if (!mIsMv) {
-            mVideoListBean.get(0).isSelect = true;
-            mVideoListBean.set(0, mVideoListBean.get(0));
+            if (mVideoListAdapter.getCurrentVideoId() == mVideoListBean.get(0).getId()) {
+                mVideoListBean.get(0).isSelect = true;
+                mVideoListBean.set(0, mVideoListBean.get(0));
+            }
         } else {
             VideoListBean.DataBean newData = new VideoListBean.DataBean();
             newData.isSelect = true;

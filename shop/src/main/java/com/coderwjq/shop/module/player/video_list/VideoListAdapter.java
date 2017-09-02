@@ -21,9 +21,18 @@ import com.hwangjr.rxbus.RxBus;
 public class VideoListAdapter extends BaseQuickAdapter<VideoListBean.DataBean, BaseViewHolder> {
 
     private int selectedPos = 0;
+    private int mCurrentVideoId;
 
     public VideoListAdapter() {
         super(R.layout.item_video_list, null);
+    }
+
+    public int getCurrentVideoId() {
+        return mCurrentVideoId;
+    }
+
+    public void setCurrentVideoId(int currentVideoId) {
+        mCurrentVideoId = currentVideoId;
     }
 
     @Override
@@ -47,6 +56,8 @@ public class VideoListAdapter extends BaseQuickAdapter<VideoListBean.DataBean, B
         helper.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mCurrentVideoId = item.getId();
+
                 if (selectedPos != helper.getAdapterPosition()) {
                     mData.get(selectedPos).isSelect = false;
                     notifyItemChanged(selectedPos);
