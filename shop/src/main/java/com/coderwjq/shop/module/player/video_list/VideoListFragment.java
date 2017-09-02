@@ -183,7 +183,6 @@ public class VideoListFragment extends BaseFragment implements VideoListContract
             isFirst = false;
         }
 
-        // 此处有严重bug...待修复
         offset += 10;
         mVideoListBean.addAll(data);
         Log.d(TAG, "addVideoList() called with: isMv = [" + mIsMv + "]");

@@ -21,6 +21,7 @@
     <color name="text_primary">#333333</color>
 
     <color name="divider_normal">#f0f0f0</color>
+    <color name="reply_background_color">#aaf0f0f0</color>
     <color name="text_yellow">#ffb400</color>
     <color name="text_blue">#12a2f1</color>
     <color name="text_gray">#999999</color>

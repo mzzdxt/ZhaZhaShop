@@ -15,12 +15,13 @@ import com.coderwjq.shop.utils.TimeUtils;
 import com.hwangjr.rxbus.RxBus;
 
 /**
- * Created by Administrator on 2017/2/15.
+ * Created by coderwjq on 2017/9/1 17:36.
  */
 
 public class VideoListAdapter extends BaseQuickAdapter<VideoListBean.DataBean, BaseViewHolder> {
 
     private int selectedPos = 0;
+    // 解决视频播放列表bug
     private int mCurrentVideoId;
 
     public VideoListAdapter() {

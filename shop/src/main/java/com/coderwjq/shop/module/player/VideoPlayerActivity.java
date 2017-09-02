@@ -30,8 +30,6 @@ import butterknife.ButterKnife;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayer;
 import fm.jiecao.jcvideoplayer_lib.JCVideoPlayerStandard;
 
-import static com.coderwjq.shop.R.id.videoplayer;
-
 public class VideoPlayerActivity extends AppCompatActivity {
 
     private static final String TAG = "VideoPlayerActivity";
@@ -44,7 +42,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
     private static final String MV_DATA = "mv_data";
     @BindView(R.id.iv_back)
     ImageView mIvBack;
-    @BindView(videoplayer)
+    @BindView(R.id.videoplayer)
     JCVideoPlayerStandard mVideoplayer;
     @BindView(R.id.view_indicator)
     View mViewIndicator;
@@ -100,6 +98,7 @@ public class VideoPlayerActivity extends AppCompatActivity {
         if (getIntent().getBundleExtra("bundle") != null) {
             mVideoBean = getIntent().getBundleExtra("bundle").getParcelable(MV_DATA);
         }
+
         mVideoplayer.setUp(videoUrl, JCVideoPlayer.SCREEN_LAYOUT_NORMAL, videoName);
 
         setUpViewPager();
