@@ -26,8 +26,14 @@
         </activity>
         <activity android:name=".activity.RegistActivity"/>
         <!-- 电影详细信息 -->
-        <activity android:name=".module.movie_detail.MovieDetailActivity"/>
+        <activity
+            android:name=".module.movie_detail.MovieDetailActivity"
+            android:theme="@style/FullScreenTheme">
+
+        </activity>
         <activity android:name=".module.player.VideoPlayerActivity">
+        </activity>
+        <activity android:name=".module.movie_star.MovieStarActivity">
         </activity>
     </application>
 

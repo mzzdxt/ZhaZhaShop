@@ -7,9 +7,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.coderwjq.shop.R;
 import com.coderwjq.shop.module.movie_detail.model.MovieStarBean;
+import com.coderwjq.shop.module.movie_star.MovieStarActivity;
 import com.coderwjq.shop.utils.GlideManager;
 import com.coderwjq.shop.utils.ImgSizeUtil;
-import com.coderwjq.shop.utils.ToastUtil;
 
 /**
  * Created by coderwjq on 2017/8/31 9:08.
@@ -38,8 +38,7 @@ public class MovieStarListAdapter extends BaseQuickAdapter<MovieStarBean.DataBea
         helper.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.showShort(mContext, item.getId() + "");
-//                MovieStarActivity.start(mContext, item.getId());
+                MovieStarActivity.invoke(mContext, item.getId());
             }
         });
     }

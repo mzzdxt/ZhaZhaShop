@@ -259,6 +259,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
         LinearLayout.LayoutParams statusBarParams = (LinearLayout.LayoutParams) mStatusBarBg.getLayoutParams();
         // 获取状态栏高度
         int statusBarHeight = getResources().getDimensionPixelSize(getResources().getIdentifier("status_bar_height", "dimen", "android"));
+        Log.e(TAG, "statusBarHeight: " + statusBarHeight);
         statusBarParams.height = statusBarHeight;
         mStatusBarBg.setLayoutParams(statusBarParams);
 
@@ -860,8 +861,8 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
                         return Observable.error(new Exception("empty Data"));
                     }
                 })
-                .observeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<MovieTopicBean.DataBean.TopicsBean>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
@@ -870,10 +871,14 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
 
                     @Override
                     public void onNext(@NonNull final MovieTopicBean.DataBean.TopicsBean topicsBean) {
-                        if (topicsBean.getPreviews().get(0).getUrl() != null) {
-                            GlideManager.loadImage(MovieDetailActivity.this, topicsBean.getPreviews().get(0).getUrl(), mIvRelatedTopic);
-                        } else {
+                        if (topicsBean.getPreviews() == null || topicsBean.getPreviews().size() == 0) {
                             mIvRelatedTopic.setVisibility(View.GONE);
+                        } else {
+                            if (topicsBean.getPreviews().get(0).getUrl() != null) {
+                                GlideManager.loadImage(MovieDetailActivity.this, topicsBean.getPreviews().get(0).getUrl(), mIvRelatedTopic);
+                            } else {
+                                mIvRelatedTopic.setVisibility(View.GONE);
+                            }
                         }
                         mTvRelatedTopicTitle.setText(topicsBean.getTitle());
                         mTvRelatedTopicAuthor.setText(topicsBean.getAuthor().getNickName());
