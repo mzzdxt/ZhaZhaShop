@@ -6,7 +6,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.coderwjq.shop.R;
 import com.coderwjq.shop.module.movie.movie_find.model.MovieTypeBean;
-import com.coderwjq.shop.utils.ToastUtil;
+import com.coderwjq.shop.module.movie_search.SearchActivity;
 
 /**
  * Created by coderwjq on 2017/8/29 11:54.
@@ -25,7 +25,7 @@ public class FindMovieTypeAdapter extends BaseQuickAdapter<MovieTypeBean.DataBea
             @Override
             public void onClick(View v) {
                 // 根据类别打开分类查找界面
-                ToastUtil.showShort(mContext, item.getTagName() + ":" + item.getTagId());
+                SearchActivity.invokeWithType(mContext, item.getTagId(), item.getTagName());
             }
         });
     }

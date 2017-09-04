@@ -1,11 +1,13 @@
 package com.coderwjq.shop.module.movie.movie_wait.adapter;
 
+import android.view.View;
 import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.coderwjq.shop.R;
 import com.coderwjq.shop.module.movie.movie_wait.bean.TrailerRecommendBean;
+import com.coderwjq.shop.module.player.VideoPlayerActivity;
 import com.coderwjq.shop.utils.GlideManager;
 
 /**
@@ -19,9 +21,16 @@ public class TrailerRecommendAdapter extends BaseQuickAdapter<TrailerRecommendBe
     }
 
     @Override
-    protected void convert(final BaseViewHolder helper, TrailerRecommendBean.DataBean item) {
+    protected void convert(final BaseViewHolder helper, final TrailerRecommendBean.DataBean item) {
         GlideManager.loadImage(mContext, item.getImg() + ".webp@405w_225h_1e_1c_1l", (ImageView) helper.getView(R.id.iv_trailer_recommend));
         helper.setText(R.id.tv_trailer_movie_title, item.getMovieName())
                 .setText(R.id.tv_trailer_movie_desc, item.getName());
+
+        helper.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                VideoPlayerActivity.invoke(mContext, item.getMovieId(), item.getVideoId(), item.getMovieName(), item.getUrl());
+            }
+        });
     }
 }

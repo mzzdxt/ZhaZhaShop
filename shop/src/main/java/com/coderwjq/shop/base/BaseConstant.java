@@ -37,4 +37,10 @@ public interface BaseConstant {
     //视频评论
     int TYPE_VIDEO_COMMENT_REPLY = 0;//有回复
     int TYPE_VIDEO_COMMENT_NO_REPLY = 1;//没有回复
+
+    //分类查找
+    int TYPE_CLASSIFY_NORMAL = 0;//不在上映
+    int TYPE_CLASSIFY_WISH = 1;//想看
+    int TYPE_CLASSIFY_BUY = 2;//可以购票
+    int TYPE_CLASSIFY_PRESALE = 3;//预售
 }

@@ -29,11 +29,14 @@
         <activity
             android:name=".module.movie_detail.MovieDetailActivity"
             android:theme="@style/FullScreenTheme">
-
         </activity>
         <activity android:name=".module.player.VideoPlayerActivity">
         </activity>
         <activity android:name=".module.movie_star.MovieStarActivity">
+        </activity>
+        <activity android:name=".activity.WebViewActivity">
+        </activity>
+        <activity android:name=".module.movie_search.SearchActivity">
         </activity>
     </application>
 

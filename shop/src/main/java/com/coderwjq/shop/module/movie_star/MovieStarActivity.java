@@ -19,6 +19,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.coderwjq.shop.R;
+import com.coderwjq.shop.activity.WebViewActivity;
 import com.coderwjq.shop.module.movie_star.adapter.StarMoviesAdapter;
 import com.coderwjq.shop.module.movie_star.adapter.StarPhotosAdapter;
 import com.coderwjq.shop.module.movie_star.adapter.StarRelatedPeopleAdapter;
@@ -32,7 +33,6 @@ import com.coderwjq.shop.utils.FastBlurUtil;
 import com.coderwjq.shop.utils.GlideManager;
 import com.coderwjq.shop.utils.ImgSizeUtil;
 import com.coderwjq.shop.utils.StringUtil;
-import com.coderwjq.shop.utils.ToastUtil;
 import com.coderwjq.shop.view.ProgressLayout;
 
 import java.io.IOException;
@@ -390,8 +390,7 @@ public class MovieStarActivity extends AppCompatActivity implements MovieStarCon
                         mLlRelatedInformation.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                ToastUtil.showShort(MovieStarActivity.this, StringUtil.getRealUrl(newsListBean.getUrl()));
-//                                BaseWebViewActivity.start(mContext, StringUtil.getRealUrl(newsListBean.getUrl()));
+                                WebViewActivity.invoke(MovieStarActivity.this, StringUtil.getRealUrl(newsListBean.getUrl()));
                             }
                         });
                     }

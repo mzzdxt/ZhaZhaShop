@@ -12,6 +12,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.coderwjq.shop.R;
 import com.coderwjq.shop.module.movie.movie_wait.bean.WaitMovieBean;
+import com.coderwjq.shop.module.movie_detail.MovieDetailActivity;
 import com.coderwjq.shop.utils.GlideManager;
 import com.coderwjq.shop.utils.ToastUtil;
 
@@ -27,7 +28,7 @@ public class WaitMovieAdapter extends BaseQuickAdapter<WaitMovieBean.DataBean.Co
     }
 
     @Override
-    protected void convert(final BaseViewHolder helper, WaitMovieBean.DataBean.ComingBean item) {
+    protected void convert(final BaseViewHolder helper, final WaitMovieBean.DataBean.ComingBean item) {
         helper.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,5 +51,11 @@ public class WaitMovieAdapter extends BaseQuickAdapter<WaitMovieBean.DataBean.Co
         spannable.setSpan(new ForegroundColorSpan(mContext.getResources().getColor(R.color.text_yellow, null)), 0, tv_wish.getText().toString().indexOf("人想看"), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         tv_wish.setText(spannable);
 
+        helper.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                MovieDetailActivity.invoke(mContext, item.getId());
+            }
+        });
     }
 }

@@ -6,11 +6,11 @@ import android.widget.ImageView;
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.coderwjq.shop.R;
+import com.coderwjq.shop.activity.WebViewActivity;
 import com.coderwjq.shop.base.BaseConstant;
 import com.coderwjq.shop.module.discover.model.DiscoverBean;
 import com.coderwjq.shop.utils.GlideManager;
 import com.coderwjq.shop.utils.TimeUtils;
-import com.coderwjq.shop.utils.ToastUtil;
 
 /**
  * Created by coderwjq on 2017/8/30 17:52.
@@ -36,6 +36,12 @@ public class DiscoverAdapter extends BaseMultiItemQuickAdapter<DiscoverBean.Data
                         .setText(R.id.tv_video_comment, String.format("%s", item.getCommentCount()))
                         .setText(R.id.tv_nickName, String.format("%s", item.getUser().getNickName()))
                         .setText(R.id.tv_time, TimeUtils.dateYMDHM(item.getTime()));
+                helper.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        WebViewActivity.invoke(mContext, item.getUrl());
+                    }
+                });
                 GlideManager.loadImage(mContext, item.getImages().get(0).getUrl(), (ImageView) helper.getView(R.id.iv_img));
                 break;
             case BaseConstant.TYPE_DISCOVER_MULTI_IMG:
@@ -48,8 +54,7 @@ public class DiscoverAdapter extends BaseMultiItemQuickAdapter<DiscoverBean.Data
                         .setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                ToastUtil.showShort(mContext, item.getImages().get(0).getTargetId() + "");
-//                                BaseWebViewActivity.start(mContext, item.getImages().get(0).getTargetId());
+                                WebViewActivity.invoke(mContext, item.getImages().get(0).getTargetId());
                             }
                         });
                 GlideManager.loadImage(mContext, item.getImages().get(0).getUrl(), (ImageView) helper.getView(R.id.iv_img1));

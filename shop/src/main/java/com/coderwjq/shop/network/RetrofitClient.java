@@ -52,4 +52,8 @@ public class RetrofitClient {
     public ApiMovieStarService apiMovieStarService() {
         return RetrofitClient.mInstance.create(ApiMovieStarService.class);
     }
+
+    public ApiMovieSearch apiMovieSearch() {
+        return RetrofitClient.mInstance.create(ApiMovieSearch.class);
+    }
 }
