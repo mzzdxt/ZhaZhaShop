@@ -9,6 +9,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.coderwjq.shop.R;
 import com.coderwjq.shop.module.movie.movie_find.model.GridMovieBean;
+import com.coderwjq.shop.module.movie_rank.expecting_rank.MovieExpectingActivity;
+import com.coderwjq.shop.module.movie_rank.favourable_rank.MovieFavourableActivity;
 import com.coderwjq.shop.utils.GlideManager;
 
 /**
@@ -53,18 +55,18 @@ public class FindMovieGridAdapter extends BaseQuickAdapter<GridMovieBean.DataBea
         GlideManager.loadImage(mContext, imgUrl1, (ImageView) helper.getView(R.id.iv_grid1));
         switch (helper.getAdapterPosition()) {
             case 0:
-                helper.convertView.setOnClickListener(new View.OnClickListener() {
+                helper.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-//                        HotGoodCommentActivity.start(mContext);
+                        MovieFavourableActivity.invoke(mContext);
                     }
                 });
                 break;
             case 1:
-                helper.convertView.setOnClickListener(new View.OnClickListener() {
+                helper.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        MostExpectMovieActivity.start(mContext);
+                        MovieExpectingActivity.invoke(mContext);
                     }
                 });
                 break;

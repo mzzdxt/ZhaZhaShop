@@ -56,4 +56,8 @@ public class RetrofitClient {
     public ApiMovieSearch apiMovieSearch() {
         return RetrofitClient.mInstance.create(ApiMovieSearch.class);
     }
+
+    public ApiMovieRankService apiMovieRankService() {
+        return RetrofitClient.mInstance.create(ApiMovieRankService.class);
+    }
 }

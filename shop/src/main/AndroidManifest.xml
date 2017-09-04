@@ -38,6 +38,10 @@
         </activity>
         <activity android:name=".module.movie_search.SearchActivity">
         </activity>
+        <activity android:name=".module.movie_rank.favourable_rank.MovieFavourableActivity">
+        </activity>
+        <activity android:name=".module.movie_rank.expecting_rank.MovieExpectingActivity">
+        </activity>
     </application>
 
 </manifest>
