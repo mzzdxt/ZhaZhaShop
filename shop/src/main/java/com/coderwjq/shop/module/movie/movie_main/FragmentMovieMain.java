@@ -2,6 +2,7 @@ package com.coderwjq.shop.module.movie.movie_main;
 
 import android.graphics.Color;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
@@ -95,15 +96,20 @@ public class FragmentMovieMain extends BaseFragment implements ViewPager.OnPageC
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        if (positionOffset == 0 && positionOffsetPixels == 0) {
+            onPageSelected(position);
+            return;
+        }
+
         boolean lessThanHalf = positionOffset < 0.5;
 
         // alpha变化范围：-255~255
         float alpha = (1 - positionOffset * 2) * 255;
         int alphaWhite = Color.argb((int) alpha, 255, 255, 255); // 白渐变到透明
-        int alphaBlue = Color.argb((int) alpha, 0, 153, 204); // 红渐变到透明
+        int alphaBlue = Color.argb((int) alpha, 0, 153, 204); // 蓝渐变到透明
 
         int alphaWhiteReverse = Color.argb((int) -alpha, 255, 255, 255); // 白渐变到透明
-        int alphaBlueReverse = Color.argb((int) -alpha, 0, 153, 204); // 红渐变到透明
+        int alphaBlueReverse = Color.argb((int) -alpha, 0, 153, 204); // 蓝渐变到透明
 
         //获取滑块的Layout
         mParams = (FrameLayout.LayoutParams) mViewIndicator.getLayoutParams();
@@ -140,6 +146,7 @@ public class FragmentMovieMain extends BaseFragment implements ViewPager.OnPageC
 
     @Override
     public void onPageSelected(int position) {
+        Log.d(TAG, "onPageSelected() called with: position = [" + position + "]");
         switch (position) {
             case 0:
                 mTvHotMovie.setTextColor(mSelectedColor);
