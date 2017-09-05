@@ -42,6 +42,8 @@
         </activity>
         <activity android:name=".module.movie_rank.expecting_rank.MovieExpectingActivity">
         </activity>
+        <activity android:name=".module.movie_rank.top100_rank.MovieTop100Activity">
+        </activity>
     </application>
 
 </manifest>

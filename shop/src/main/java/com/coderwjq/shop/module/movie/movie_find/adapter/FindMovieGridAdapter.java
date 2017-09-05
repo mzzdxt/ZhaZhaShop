@@ -11,6 +11,7 @@ import com.coderwjq.shop.R;
 import com.coderwjq.shop.module.movie.movie_find.model.GridMovieBean;
 import com.coderwjq.shop.module.movie_rank.expecting_rank.MovieExpectingActivity;
 import com.coderwjq.shop.module.movie_rank.favourable_rank.MovieFavourableActivity;
+import com.coderwjq.shop.module.movie_rank.top100_rank.MovieTop100Activity;
 import com.coderwjq.shop.utils.GlideManager;
 
 /**
@@ -79,10 +80,10 @@ public class FindMovieGridAdapter extends BaseQuickAdapter<GridMovieBean.DataBea
                 });
                 break;
             case 3:
-                helper.convertView.setOnClickListener(new View.OnClickListener() {
+                helper.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-//                        TopHundredMovieActivity.start(mContext);
+                        MovieTop100Activity.invoke(mContext);
                     }
                 });
                 break;

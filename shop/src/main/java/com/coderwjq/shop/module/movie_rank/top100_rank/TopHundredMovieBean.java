@@ -1,11 +1,7 @@
-
-package com.cicinnus.cateye.module.movie.find_movie.fixedboard_movie.top_100;
+package com.coderwjq.shop.module.movie_rank.top100_rank;
 
 import java.util.List;
 
-/**
- * Created by Cicinnus on 2017/2/5.
- */
 
 public class TopHundredMovieBean {
 
