@@ -80,7 +80,7 @@ public class MovieTop100Activity extends AppCompatActivity implements ILoadingVi
     private void initAdapter() {
         mMovieAdapter = new TopHundredMovieAdapter();
         mRvBaseRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRvBaseRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL));
+        mRvBaseRecyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         mRvBaseRecyclerView.setAdapter(mMovieAdapter);
 
         View headerView = getLayoutInflater().inflate(R.layout.layout_fixboard_header, mRvBaseRecyclerView, false);
@@ -128,7 +128,7 @@ public class MovieTop100Activity extends AppCompatActivity implements ILoadingVi
     @Override
     public void showError(String error) {
         mRefreshListener.refreshDone();
-        
+
         if (!mProgressLayout.isContent()) {
             mProgressLayout.showError(new View.OnClickListener() {
                 @Override

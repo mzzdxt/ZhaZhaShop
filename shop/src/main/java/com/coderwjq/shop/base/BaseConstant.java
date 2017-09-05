@@ -43,4 +43,11 @@ public interface BaseConstant {
     int TYPE_CLASSIFY_WISH = 1;//想看
     int TYPE_CLASSIFY_BUY = 2;//可以购票
     int TYPE_CLASSIFY_PRESALE = 3;//预售
+
+    //海外电影
+    int TYPE_OVERSEA_NORMAL = 0;//普通
+    int TYPE_OVERSEA_PRESALE = 1;//预售
+    int TYPE_OVERSEA_BUY = 2;//可以购票
+    int TYPE_OVERSEA_HEAD_LINE = 3;//有专题内容
+    int TYPE_OVERSEA_FOOTER = 4;//尾部点击查看更多
 }

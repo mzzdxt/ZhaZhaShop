@@ -34,7 +34,6 @@ public class ProgressLayout extends LinearLayout {
     private static final String LOADING_TAG = "loading_tag";
     private static final String ERROR_TAG = "error_tag";
 
-
     private LayoutParams layoutParams;
     private LayoutInflater layoutInflater;
     private LinearLayout loadingView, errorView;
@@ -44,19 +43,26 @@ public class ProgressLayout extends LinearLayout {
     private List<View> contentViews = new ArrayList<>();
     private RotateAnimation rotateAnimation;
     private State currentState = State.LOADING;
+    private Context mContext;
 
     public ProgressLayout(Context context) {
         super(context);
+
+        mContext = context;
     }
 
     public ProgressLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(attrs);
+
+        mContext = context;
     }
 
     public ProgressLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(attrs);
+
+        mContext = context;
     }
 
     private void init(AttributeSet attrs) {
@@ -123,6 +129,7 @@ public class ProgressLayout extends LinearLayout {
             loadingView.setTag(LOADING_TAG);
             layoutParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
             ImageView iv_loading = (ImageView) loadingView.findViewById(R.id.iv_loading);
+
             rotateAnimation = new RotateAnimation(0, 360, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
             rotateAnimation.setDuration(800);
             rotateAnimation.setRepeatMode(Animation.RESTART);//重复

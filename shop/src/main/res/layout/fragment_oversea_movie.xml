@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.coderwjq.shop.view.ProgressLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/progressLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.coderwjq.shop.view.SuperSwipeRefreshLayout
+        android:id="@+id/swipe"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_oversea_movie"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </com.coderwjq.shop.view.SuperSwipeRefreshLayout>
+
+</com.coderwjq.shop.view.ProgressLayout>

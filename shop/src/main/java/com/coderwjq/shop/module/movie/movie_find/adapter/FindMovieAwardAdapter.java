@@ -7,6 +7,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.coderwjq.shop.R;
 import com.coderwjq.shop.module.movie.movie_find.model.AwardsMovieBean;
+import com.coderwjq.shop.module.movie_detail.MovieDetailActivity;
 import com.coderwjq.shop.utils.GlideManager;
 
 /**
@@ -19,7 +20,7 @@ public class FindMovieAwardAdapter extends BaseQuickAdapter<AwardsMovieBean.Data
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, AwardsMovieBean.DataBean item) {
+    protected void convert(BaseViewHolder helper, final AwardsMovieBean.DataBean item) {
         helper.setText(R.id.tv_award_movie_title, item.getFestivalName())
                 .setText(R.id.tv_award_movie_time, item.getHeldDate().substring(5, item.getHeldDate().length()))
                 .setText(R.id.tv_award_prize_name, item.getPrizeName())
@@ -33,7 +34,7 @@ public class FindMovieAwardAdapter extends BaseQuickAdapter<AwardsMovieBean.Data
                 .setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        MovieDetailActivity.start(mContext, item.getMovieId());
+                        MovieDetailActivity.invoke(mContext, item.getMovieId());
                     }
                 });
 

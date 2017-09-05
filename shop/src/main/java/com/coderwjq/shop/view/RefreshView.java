@@ -13,6 +13,7 @@ import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 
 import com.coderwjq.shop.R;
+import com.coderwjq.shop.utils.UIUtils;
 
 /**
  * 自定义刷新头部
@@ -66,15 +67,21 @@ public class RefreshView extends AppCompatImageView {
         int minHeight = (int) (this.getHeight() * progress);
         if (minWidth > 1 && minHeight > 1) {
 
-            Bitmap inner = BitmapFactory.decodeResource(getResources(), R.drawable.bg_pull_process);
+            Bitmap inner = BitmapFactory.decodeResource(getResources(), R.drawable.icon_coderwjq);
             Bitmap circle = BitmapFactory.decodeResource(getResources(), R.drawable.ic_progress_out);
 
-            float scaleW = (float) getWidth() / (float) inner.getWidth();
-            float scaleH = (float) getHeight() / (float) inner.getHeight();
-            int scaleWidth = (int) (inner.getWidth() * scaleW);
-            int scaleHeight = (int) (inner.getHeight() * scaleH);
-            //画内部的灰色猫icon
-            canvas.drawBitmap(inner, null, new Rect(0, 0, scaleWidth, scaleHeight), mPaint);
+            float innerWidth = (float) inner.getWidth();
+            float innerHeight = (float) inner.getHeight();
+
+            float scaleW = (float) getWidth() / innerWidth;
+            float scaleH = (float) getHeight() / innerHeight;
+
+            int scaleWidth = (int) (innerWidth * scaleW);
+            int scaleHeight = (int) (innerHeight * scaleH);
+
+            int padding = UIUtils.dp2px(getContext(), 6);
+            //画内部icon
+            canvas.drawBitmap(inner, null, new Rect(0 + padding, 0 + padding, scaleWidth - padding, scaleHeight - padding), mPaint);
 
             Matrix matrix = new Matrix();
             //顺时针旋转180度，因为一开始应该是从下网上画图片
@@ -90,8 +97,7 @@ public class RefreshView extends AppCompatImageView {
             // createBitmap最后一个参数就是所画图片的高度，
             // 因为是根据显示程度来绘制，所以高度*（progress） 其中progess<=1,就会有渐变的效果
             Bitmap mask_outter_circle = Bitmap.createBitmap(temp_circle, 0, 0, temp_circle.getWidth(), progress == 1.0f ?
-                    temp_circle.getHeight()
-                    : (int) (temp_circle.getHeight() * progress));
+                    temp_circle.getHeight() : (int) (temp_circle.getHeight() * progress));
 
             canvas.drawBitmap(mask_outter_circle, matrix, mPaint);
 
@@ -118,7 +124,6 @@ public class RefreshView extends AppCompatImageView {
             isAnimate = true;
             mHandler.post(mRunnable);
         }
-
     }
 
     /**

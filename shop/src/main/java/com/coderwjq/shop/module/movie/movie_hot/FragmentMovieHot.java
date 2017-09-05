@@ -94,6 +94,10 @@ public class FragmentMovieHot extends BaseFragment implements HotMovieListContac
 
     @Override
     public void showLoading() {
+        if (!isAdded()) {
+            return;
+        }
+
         if (!mPlContainer.isContent()) {
             mPlContainer.showLoading();
         }
@@ -101,6 +105,10 @@ public class FragmentMovieHot extends BaseFragment implements HotMovieListContac
 
     @Override
     public void showContent() {
+        if (!isAdded()) {
+            return;
+        }
+
         if (!mPlContainer.isContent()) {
             mPlContainer.showContent();
         }
@@ -109,6 +117,10 @@ public class FragmentMovieHot extends BaseFragment implements HotMovieListContac
 
     @Override
     public void showError(String error) {
+        if (!isAdded()) {
+            return;
+        }
+
         mRefreshListener.refreshDone();
         mPlContainer.showError(new View.OnClickListener() {
             @Override

@@ -44,6 +44,8 @@
         </activity>
         <activity android:name=".module.movie_rank.top100_rank.MovieTop100Activity">
         </activity>
+        <activity android:name=".module.movie_rank.oversea_rank.MovieOverseaActivity">
+        </activity>
     </application>
 
 </manifest>

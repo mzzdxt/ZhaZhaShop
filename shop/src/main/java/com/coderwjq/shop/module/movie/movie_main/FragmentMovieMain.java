@@ -75,6 +75,7 @@ public class FragmentMovieMain extends BaseFragment implements ViewPager.OnPageC
     private void initAdapter() {
         mMovieMainAdapter = new MovieMainAdapter(getFragmentManager(), mFragmentList);
         mVpMovie.setAdapter(mMovieMainAdapter);
+        mVpMovie.setOffscreenPageLimit(2);
     }
 
     private void initFragment() {

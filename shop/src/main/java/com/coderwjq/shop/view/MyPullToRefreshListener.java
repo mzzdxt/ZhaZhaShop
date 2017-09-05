@@ -26,7 +26,6 @@ public class MyPullToRefreshListener implements SuperSwipeRefreshLayout.OnPullRe
     private int height;//头部高度
     private SuperSwipeRefreshLayout mSwipeRefreshLayout;
 
-
     public MyPullToRefreshListener(Context context, SuperSwipeRefreshLayout superSwipeRefreshLayout) {
         this.mSwipeRefreshLayout = superSwipeRefreshLayout;
         setupRefreshView(context);
