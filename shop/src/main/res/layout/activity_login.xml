@@ -59,6 +59,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_button_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/ll_input_group">
@@ -85,5 +86,15 @@
             android:text="登陆"
             android:textSize="20sp"/>
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_button_group"
+        android:gravity="center"
+        android:padding="@dimen/dp_14"
+        android:text="演示请直接点击登录按钮"
+        android:textColor="@color/colorAccent"/>
 
 </RelativeLayout>

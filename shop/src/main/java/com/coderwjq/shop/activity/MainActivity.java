@@ -26,12 +26,17 @@ public class MainActivity extends AppCompatActivity {
     private FragmentCinema mFragmentCinema;
     private FragmentDiscover mFragmentDiscover;
     private FragmentMine mFragmentMine;
+    private int mBottomBarHeight;
 
     public static void invoke(Activity srcActivity, boolean finishSelf) {
         srcActivity.startActivity(new Intent(srcActivity, MainActivity.class));
         if (finishSelf) {
             srcActivity.finish();
         }
+    }
+
+    public int getBottomBarHeight() {
+        return mBottomBarHeight;
     }
 
     @Override
@@ -44,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
 
         initFrament();
         switchFragment(BaseConstant.RB_MOVIE);
+
+        mRgMain.measure(0, 0);
+        mBottomBarHeight = mRgMain.getMeasuredHeight();
     }
 
     private void initRadioGroupListener() {

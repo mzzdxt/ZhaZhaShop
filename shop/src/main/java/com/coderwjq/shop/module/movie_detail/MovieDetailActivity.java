@@ -44,6 +44,7 @@ import com.coderwjq.shop.module.movie_detail.model.MovieStarBean;
 import com.coderwjq.shop.module.movie_detail.model.MovieTipsBean;
 import com.coderwjq.shop.module.movie_detail.model.MovieTopicBean;
 import com.coderwjq.shop.module.movie_detail.model.RelatedMovieBean;
+import com.coderwjq.shop.module.player.VideoPlayerActivity;
 import com.coderwjq.shop.utils.ErrorHanding;
 import com.coderwjq.shop.utils.FastBlurUtil;
 import com.coderwjq.shop.utils.GlideManager;
@@ -421,8 +422,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
         mFlMovieImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ToastUtil.showShort(MovieDetailActivity.this, movie.getVideoName());
-//                MovieVideoActivity.start(mContext, movie.getId(), 0, movie.getNm() + " " + movie.getVideoName(), movie.getVideourl());
+                VideoPlayerActivity.invoke(MovieDetailActivity.this, movie.getId(), 0, movie.getNm() + " " + movie.getVideoName(), movie.getVideourl());
             }
         });
 
@@ -741,8 +741,8 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
                         return Observable.error(new Exception("empty error"));
                     }
                 })
-                .observeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<MovieLongCommentBean.DataBean>() {
                     @Override
                     public void accept(@NonNull MovieLongCommentBean.DataBean dataBean) throws Exception {
@@ -784,8 +784,8 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
                         return Observable.error(new Exception("empty data"));
                     }
                 })
-                .observeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<MovieRelatedInformationBean.DataBean.NewsListBean>() {
                     @Override
                     public void accept(@NonNull final MovieRelatedInformationBean.DataBean.NewsListBean newsListBean) throws Exception {
@@ -831,8 +831,8 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
                         return Observable.error(new Exception("empty data"));
                     }
                 })
-                .observeOn(Schedulers.io())
-                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<RelatedMovieBean.DataBean>() {
                     @Override
                     public void accept(@NonNull RelatedMovieBean.DataBean dataBean) throws Exception {

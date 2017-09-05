@@ -3,11 +3,12 @@
             android:id="@+id/rg_main"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_gravity="bottom"
-            android:background="#99f0f0f0"
+            android:background="#aaf0f0f0"
             android:orientation="horizontal"
-            android:paddingBottom="6dp"
-            android:paddingTop="6dp">
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp">
 
     <RadioButton
         android:id="@+id/rb_movie"
