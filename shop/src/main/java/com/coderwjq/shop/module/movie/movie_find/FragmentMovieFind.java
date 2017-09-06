@@ -1,14 +1,20 @@
 package com.coderwjq.shop.module.movie.movie_find;
 
+import android.app.Activity;
+import android.os.Bundle;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.coderwjq.shop.R;
+import com.coderwjq.shop.activity.MainActivity;
 import com.coderwjq.shop.base.BaseFragment;
 import com.coderwjq.shop.module.movie.movie_find.adapter.FindMovieAwardAdapter;
 import com.coderwjq.shop.module.movie.movie_find.adapter.FindMovieGridAdapter;
@@ -25,6 +31,8 @@ import com.coderwjq.shop.view.SuperSwipeRefreshLayout;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * @Created by coderwjq on 2017/5/25 16:01.
@@ -32,6 +40,7 @@ import butterknife.BindView;
  */
 
 public class FragmentMovieFind extends BaseFragment implements FindMovieContract.IFindMovieView {
+    private static final String TAG = "FragmentMovieFind";
 
     @BindView(R.id.rv_movie_type)
     RecyclerView mRvMovieType;
@@ -49,6 +58,9 @@ public class FragmentMovieFind extends BaseFragment implements FindMovieContract
     SuperSwipeRefreshLayout mSsrlRefresh;
     @BindView(R.id.pl_container)
     ProgressLayout mPlContainer;
+    @BindView(R.id.nsv_view)
+    NestedScrollView mNsvView;
+    Unbinder unbinder;
     private MyPullToRefreshListener mRefreshListener;
     private FindMoviePresenter mFindMoviePresenter;
     private FindMovieTypeAdapter mFindMovieTypeAdapter;
@@ -128,6 +140,51 @@ public class FragmentMovieFind extends BaseFragment implements FindMovieContract
 
         mFindMovieAwardAdapter = new FindMovieAwardAdapter();
         mRvMovieAwards.setAdapter(mFindMovieAwardAdapter);
+
+        mNsvView.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            int dySum;
+
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                Activity attachedActivity = getActivity();
+
+                int dy = scrollY - oldScrollY;
+
+                if (dy >= 0) {
+                    // 向下滑动,隐藏底部tabbar
+                    if (dySum < 0) {
+                        dySum = 0;
+                    } else {
+                        dySum += dy;
+
+                        // 判断用户手指在屏幕上的滑动是否是一个ACTION_MOVE动作的这个距离常量叫做TouchSlop
+                        if (dySum >= ViewConfiguration.get(attachedActivity).getScaledTouchSlop()) {
+                            if (attachedActivity instanceof MainActivity && !(((MainActivity) attachedActivity).isBottomMenuAnimShowing())) {
+                                ((MainActivity) attachedActivity).hideBottomBar();
+                                dySum = 0;
+                            }
+                        }
+                    }
+                } else {
+                    // 向上滑动,显示底部tabbar
+                    if (dySum > 0) {
+                        dySum = 0;
+                    } else {
+                        dySum += dy;
+
+                        if (dySum <= -ViewConfiguration.get(attachedActivity).getScaledTouchSlop()) {
+                            if (attachedActivity instanceof MainActivity && !(((MainActivity) attachedActivity).isBottomMenuAnimShowing())) {
+                                ((MainActivity) attachedActivity).showBottomBar();
+                                dySum = 0;
+                            }
+                        }
+                    }
+
+
+                }
+
+            }
+        });
     }
 
     @Override
@@ -163,7 +220,7 @@ public class FragmentMovieFind extends BaseFragment implements FindMovieContract
         if (!isAdded()) {
             return;
         }
-        
+
         mRefreshListener.refreshDone();
 
         mPlContainer.showError(new View.OnClickListener() {
@@ -197,5 +254,19 @@ public class FragmentMovieFind extends BaseFragment implements FindMovieContract
     @Override
     public void addAwardsMovie(List<AwardsMovieBean.DataBean> data) {
         mFindMovieAwardAdapter.setNewData(data);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

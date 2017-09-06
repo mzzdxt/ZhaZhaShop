@@ -1,14 +1,17 @@
 package com.coderwjq.shop.module.discover;
 
+import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.coderwjq.shop.R;
+import com.coderwjq.shop.activity.MainActivity;
 import com.coderwjq.shop.base.BaseFragment;
 import com.coderwjq.shop.module.discover.adapter.DiscoverAdapter;
 import com.coderwjq.shop.module.discover.model.DiscoverBean;
@@ -93,7 +96,49 @@ public class FragmentDiscover extends BaseFragment implements DiscoverContract.I
 
     @Override
     protected void initListener() {
+        mRvDiscover.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            int dySum;
 
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                Activity attachedActivity = getActivity();
+
+                if (dy >= 0) {
+                    // 向下滑动,隐藏底部tabbar
+                    if (dySum < 0) {
+                        dySum = 0;
+                    } else {
+                        dySum += dy;
+
+                        // 判断用户手指在屏幕上的滑动是否是一个ACTION_MOVE动作的这个距离常量叫做TouchSlop
+                        if (dySum >= ViewConfiguration.get(attachedActivity).getScaledTouchSlop()) {
+                            if (attachedActivity instanceof MainActivity && !(((MainActivity) attachedActivity).isBottomMenuAnimShowing())) {
+                                ((MainActivity) attachedActivity).hideBottomBar();
+                                dySum = 0;
+                            }
+                        }
+                    }
+                } else {
+                    // 向上滑动,显示底部tabbar
+                    if (dySum > 0) {
+                        dySum = 0;
+                    } else {
+                        dySum += dy;
+
+                        if (dySum <= -ViewConfiguration.get(attachedActivity).getScaledTouchSlop()) {
+                            if (attachedActivity instanceof MainActivity && !(((MainActivity) attachedActivity).isBottomMenuAnimShowing())) {
+                                ((MainActivity) attachedActivity).showBottomBar();
+                                dySum = 0;
+                            }
+                        }
+                    }
+
+
+                }
+            }
+        });
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.coderwjq.shop.activity;
 
+import android.animation.Animator;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -27,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private FragmentDiscover mFragmentDiscover;
     private FragmentMine mFragmentMine;
     private int mBottomBarHeight;
+    private Animator.AnimatorListener mAnimatorListener;
+    private boolean isBottomMenuAnimShowing;
 
     public static void invoke(Activity srcActivity, boolean finishSelf) {
         srcActivity.startActivity(new Intent(srcActivity, MainActivity.class));
@@ -35,8 +38,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public int getBottomBarHeight() {
-        return mBottomBarHeight;
+    public boolean isBottomMenuAnimShowing() {
+        return isBottomMenuAnimShowing;
     }
 
     @Override
@@ -52,6 +55,31 @@ public class MainActivity extends AppCompatActivity {
 
         mRgMain.measure(0, 0);
         mBottomBarHeight = mRgMain.getMeasuredHeight();
+        initAnimatorListener();
+    }
+
+    private void initAnimatorListener() {
+        mAnimatorListener = new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                isBottomMenuAnimShowing = true;
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                isBottomMenuAnimShowing = false;
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+                isBottomMenuAnimShowing = false;
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animation) {
+
+            }
+        };
     }
 
     private void initRadioGroupListener() {
@@ -123,5 +151,21 @@ public class MainActivity extends AppCompatActivity {
                 .add(R.id.fl_container_main, mFragmentDiscover)
                 .add(R.id.fl_container_main, mFragmentMine)
                 .commit();
+    }
+
+    public void showBottomBar() {
+        mRgMain.animate()
+                .translationY(0)
+                .setDuration(500)
+                .setListener(mAnimatorListener)
+                .start();
+    }
+
+    public void hideBottomBar() {
+        mRgMain.animate()
+                .translationY(mBottomBarHeight)
+                .setDuration(500)
+                .setListener(mAnimatorListener)
+                .start();
     }
 }

@@ -1,12 +1,15 @@
 package com.coderwjq.shop.module.movie.movie_hot;
 
+import android.app.Activity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewConfiguration;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.coderwjq.shop.R;
+import com.coderwjq.shop.activity.MainActivity;
 import com.coderwjq.shop.base.BaseFragment;
 import com.coderwjq.shop.view.MyPullToRefreshListener;
 import com.coderwjq.shop.view.ProgressLayout;
@@ -90,6 +93,50 @@ public class FragmentMovieHot extends BaseFragment implements HotMovieListContac
             }
         }, mRvHotMovie);
         mPresenter.getHotMovieList(GROUP_ITEM_COUNT);
+
+        mRvHotMovie.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            int dySum;
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+
+                Activity attachedActivity = getActivity();
+
+                if (dy >= 0) {
+                    // 向下滑动,隐藏底部tabbar
+                    if (dySum < 0) {
+                        dySum = 0;
+                    } else {
+                        dySum += dy;
+
+                        // 判断用户手指在屏幕上的滑动是否是一个ACTION_MOVE动作的这个距离常量叫做TouchSlop
+                        if (dySum >= ViewConfiguration.get(attachedActivity).getScaledTouchSlop()) {
+                            if (attachedActivity instanceof MainActivity && !(((MainActivity) attachedActivity).isBottomMenuAnimShowing())) {
+                                ((MainActivity) attachedActivity).hideBottomBar();
+                                dySum = 0;
+                            }
+                        }
+                    }
+                } else {
+                    // 向上滑动,显示底部tabbar
+                    if (dySum > 0) {
+                        dySum = 0;
+                    } else {
+                        dySum += dy;
+
+                        if (dySum <= -ViewConfiguration.get(attachedActivity).getScaledTouchSlop()) {
+                            if (attachedActivity instanceof MainActivity && !(((MainActivity) attachedActivity).isBottomMenuAnimShowing())) {
+                                ((MainActivity) attachedActivity).showBottomBar();
+                                dySum = 0;
+                            }
+                        }
+                    }
+
+
+                }
+            }
+        });
     }
 
     @Override
